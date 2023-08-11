@@ -26,6 +26,8 @@ import { UniversityMarksComponent } from './JA/university-marks/university-marks
 import { HttpClientModule } from '@angular/common/http';
 import { StudentTenthMarkComponent } from './JA/student-tenth-mark/student-tenth-mark.component';
 import { ErpStudentMasterComponent } from './JA/erp-student-master/erp-student-master.component';
+import { AssesmentEntryComponent } from './faculty/assesment-entry/assesment-entry.component';
+import { TenthMarksComponent } from './student/tenth-marks/tenth-marks.component';
 
 
 
@@ -38,7 +40,7 @@ import { ErpStudentMasterComponent } from './JA/erp-student-master/erp-student-m
     SidebarComponent,
     DashboardComponent,
     PagenotfoundComponent,
-   LoginComponent,RegisterComponent,FnavbarComponent, MainpageComponent, FirstpageComponent, CourseMasterComponent, UniversityMarksComponent, StudentTenthMarkComponent, ErpStudentMasterComponent
+   LoginComponent,RegisterComponent,FnavbarComponent, MainpageComponent, FirstpageComponent, CourseMasterComponent, UniversityMarksComponent, StudentTenthMarkComponent, ErpStudentMasterComponent, AssesmentEntryComponent, TenthMarksComponent
   ],
   imports: [
     BrowserModule,

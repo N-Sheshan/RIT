@@ -1,0 +1,148 @@
+<p>tenth-marks works!</p>
+<div class="formbold-main-wrapper">
+    <div class="formbold-form-wrapper">
+        <!-- <img src="your-image-url-here.jpg"> -->
+        <form (submit)="To_DB()" #myForm="ngForm">
+            <div class="formbold-form-title">
+                <h2 class="">COURSE ENTRY</h2>
+
+            </div>
+
+            <div class="formbold-input-flex">
+                <div>
+                    <label for="Year" class="formbold-form-label">
+                        Batch No*
+                    </label>
+                    <select name="bach_no" id="bach_no" class="formbold-form-input" required>
+                        <option value="" disabled selected hidden>Select Batch</option>
+                        <option [value]="2020">2020-2024</option>
+                        <option [value]="2021">2021-2025</option>
+                        <option [value]="2022">2022-2026</option>
+                        <option [value]="2023">2023-2027</option>
+                        <option [value]="2024">2024-2028</option>
+                        <!-- <option [value]="2025">2025-2029</option> -->
+                    </select>
+                    <!-- <div *ngIf="yearField.invalid && yearField.touched"s class="error-message">
+                            Year is required.
+                          </div> -->
+                </div>
+                <div>
+
+                    <label for="Education_type" class="formbold-form-label">Education Type* </label>
+                    <select name="Education_type" class="formbold-form-input" required>
+                        <option value="" disabled selected hidden>Select Education Type</option>
+                        <option value="State Board">State Board</option>
+                        <option value="Matriculation ">Matric</option>
+                        <option value="CBSE">CBSE</option>
+                        <option value="ICSE">ICSE</option>
+                    </select>
+
+                </div>
+                <div>
+                    <label for="y_o_p" class="formbold-form-label"> Year of passing* </label>
+                    <select name="y_o_p" id="y_o_p" class="formbold-form-input" required>
+                        <option value="" disabled selected hidden>Select Year of passing</option>
+                        <!-- <option [value]="2017">2017</option> -->
+                        <option [value]="2014">2014</option>
+                        <option [value]="2015">2015</option>
+                        <option [value]="2016">2016</option>
+                        <option [value]="2017">2017</option>
+                        <option [value]="2018">2018</option>
+                        <option [value]="2019">2019</option>
+                        <option [value]="2020">2020</option>
+
+
+                    </select>
+                </div>
+            </div>
+            <div class="formbold-input-flex">
+                <div><label for="Tamil_Mark" class="formld-form-label">
+                        Tamil Mark*
+                    </label>
+                    <input type="number" name="Tamil_Mark" id="Tamil_Mark" class="formbold-form-input" />
+                </div>
+                <div><label for="English_Mark" class="formld-form-label">
+                        English Mark*
+                    </label>
+                    <input type="number" name="English_Mark" id="English_Mark" class="formbold-form-input" />
+                </div>
+                <div><label for="MAths_Mark" class="formld-form-label">
+                        MAths Mark*
+                    </label>
+                    <input type="number" name="MAths_Mark" id="MAths_Mark" class="formbold-form-input" />
+                </div>
+
+
+            </div>
+
+            <div class="formbold-input-flex">
+                <div><label for="Tamil_Mark" class="formld-form-label">
+                        Science Mark*
+                    </label>
+                    <input type="number" name="Tamil_Mark" id="Tamil_Mark" class="formbold-form-input" />
+                </div>
+                <div><label for="English_Mark" class="formld-form-label">
+                        Social Science Mark*
+                    </label>
+                    <input type="number" name="English_Mark" id="English_Mark" class="formbold-form-input" />
+                </div>
+                <div>
+                    <label for="addtional_sub" class="formbold-form-label"> Addtional Subject</label>
+                    <select name="addtional_sub" id="addtional_sub" class="formbold-form-input" required>
+                        <option value="" disabled selected hidden>Select Addtional Subject</option>
+                        <!-- <option [value]="2017">2017</option> -->
+                        <option value="Computer Science">Computer Science</option>
+                        <option value="Physical Education">Physical Education</option>
+                    </select>
+                </div>
+                <div><label for="MAths_Mark" class="formld-form-label">
+                        Addtional Subject Mark*
+                    </label>
+                    <input type="number" name="MAths_Mark" id="MAths_Mark" class="formbold-form-input" />
+                </div>
+
+            </div>
+
+
+
+            <div class="formbold-input-flex">
+                <div>
+                    <label for="ppw_lectur" class="formbold-form-label">PPW-Lectur*</label>
+                    <select name="ppw_lectur" id="ppw_lectur" class="formbold-form-input" required>
+                        <option value="" disabled selected hidden>Select PPW-Lectur</option>
+                        <option [value]="0">0</option>
+                        <option [value]="1">1</option>
+                        <option [value]="2">2</option>
+                        <option [value]="3">3</option>
+                    </select>
+                </div>
+                <div>
+                    <label for="PPW-Tutorial" class="formbold-form-label"> PPW-Tutorial* </label>
+                    <select name="PPW-Tutorial" id="PPW-Tutorial" class="formbold-form-input" required>
+                        <option value="" disabled selected hidden>Select PPW-Tutorial</option>
+                        <option [value]="0">0</option>
+                        <option [value]="1">1</option>
+                        <option [value]="2">2</option>
+                        <option [value]="3">3</option>
+                    </select>
+                </div>
+                <div>
+                    <label for="PPW-Practical" class="formbold-form-label"> PPW-Practical*</label>
+                    <select name="PPW-Practical" id="PPW-Practical" class="formbold-form-input" required>
+                        <option value="" disabled selected hidden>Select PPW-Practical</option>
+                        <option [value]="0">0</option>
+                        <option [value]="1">1</option>
+                        <option [value]="2">2</option>
+                        <option [value]="3">3</option>
+                        <option [value]="4">4</option>
+                        <option [value]="20">20</option>
+                    </select>
+                </div>
+            </div>
+
+            <button type="submit" [disabled]='!myForm.form.valid'
+                [ngClass]="{'default-button':!myForm.form.valid,'blue-button':myForm.form.valid}">Add To DB</button>
+        </form>
+    </div>
+</div>
+<!--  -->

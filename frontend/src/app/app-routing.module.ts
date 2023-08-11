@@ -11,6 +11,7 @@ import { MainpageComponent } from './mainpage/mainpage.component';
 
 import { PagenotfoundComponent } from './pagenotfound/pagenotfound.component';
 import { RegisterComponent } from './register/register.component';
+import { TenthMarksComponent } from './student/tenth-marks/tenth-marks.component';
 
 const routes: Routes = [
   {path:'',component:LoginComponent},
@@ -20,7 +21,8 @@ const routes: Routes = [
   {path:'mainpage',component:MainpageComponent,children:[ {path:'course_entry',component:CourseMasterComponent},
   {path:'university_entry',component:UniversityMarksComponent},
   {path:'10th_marks',component:StudentTenthMarkComponent},
-  {path:'erp_student_master',component:ErpStudentMasterComponent},]},
+  {path:'erp_student_master',component:ErpStudentMasterComponent},
+  {path:'1oth_marks_entry',component:TenthMarksComponent},]},
 
   
 

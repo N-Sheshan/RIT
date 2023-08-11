@@ -34,12 +34,12 @@ export class SidebarComponent implements OnInit {
       icon:'bx bx-wallet-alt',
       link:'/mainpage/erp_student_master'
     },
-    // {
-    //   id:5,
-    //   name:'Invoices',
-    //   icon:'bx bx-receipt',
-    //   link:'/invoices'
-    // },
+    {
+      id:5,
+      name:'1oth_marks_entry',
+      icon:'bx bx-receipt',
+      link:'/mainpage/1oth_marks_entry'
+    },
     // {
     //   id:6,
     //   name:'Loan Plans',
