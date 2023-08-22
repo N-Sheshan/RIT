@@ -1,0 +1,146 @@
+<div class="formbold-main-wrapper">
+    <div class="formbold-form-wrapper">
+        <!-- <img src="your-image-url-here.jpg"> -->
+        <form  (submit)="To_DB()" #myForm="ngForm" >
+            <div class="formbold-form-title">
+                <h2 class="">12th MARK VOCATIONAL</h2>
+
+            </div>
+
+            <div class="formbold-input-flex">
+                <div>
+                    <label for="Year" class="formbold-form-label">
+                        Batch No*
+                    </label>
+                    <select name="bach_no" id="bach_no" class="formbold-form-input"  [(ngModel)]="student_12th_vocational_mark.batch_no"
+                     required>
+                        <option value="" disabled selected hidden>Select Batch</option>
+                        <option [value]="2020">2020-2024</option>
+                        <option [value]="2021">2021-2025</option>
+                        <option [value]="2022">2022-2026</option>
+                        <option [value]="2023">2023-2027</option>
+                        <option [value]="2024">2024-2028</option>
+                        <!-- <option [value]="2025">2025-2029</option> -->
+                    </select>
+                    <!-- <div *ngIf="yearField.invalid && yearField.touched"s class="error-message">
+                            Year is required.
+                          </div> -->
+                </div>
+                <div>
+
+                    <label for="Education_type" class="formbold-form-label">Education Type* </label>
+                    <select name="Education_type" class="formbold-form-input"  [(ngModel)]="student_12th_vocational_mark.education_type"
+                     required>
+                        <option value="" disabled selected hidden>Select Education Type</option>
+                        <option value="State Board">State Board</option>
+                        <option value="Matriculation ">Matric</option>
+                        <option value="CBSE">CBSE</option>
+                        <option value="ICSE">ICSE</option>
+                    </select>
+
+                </div>
+                <div>
+                    <label for="y_o_p" class="formbold-form-label"> Year of passing* </label>
+                    <select name="y_o_p" id="y_o_p" class="formbold-form-input"  [(ngModel)]="student_12th_vocational_mark.year_of_passing"
+                    required>
+                        <option value="" disabled selected hidden>Select Year of passing</option>
+                        <!-- <option [value]="2017">2017</option> -->
+                        <option [value]="2014">2014</option>
+                        <option [value]="2015">2015</option>
+                        <option [value]="2016">2016</option>
+                        <option [value]="2017">2017</option>
+                        <option [value]="2018">2018</option>
+                        <option [value]="2019">2019</option>
+                        <option [value]="2020">2020</option>
+
+
+                    </select>
+                </div>
+                <div><label for="language" class="formld-form-label">
+                    Language*
+                </label>
+                <input type="text" name="language" id="language" class="formbold-form-input"  [(ngModel)]="student_12th_vocational_mark.language"/>
+            </div>
+            </div>
+            <div class="formbold-input-flex">
+                
+                <div><label for="language_mark" class="formld-form-label">
+                        Language Mark*
+                    </label>
+                    <input type="number" name="language_mark" id="language_mark" class="formbold-form-input"  [(ngModel)]="student_12th_vocational_mark.language_mark" />
+                </div>
+                <div><label for="english" class="formld-form-label">
+                        English Mark*
+                    </label>
+                    <input type="number" name="english" id="english" class="formbold-form-input"  [(ngModel)]="student_12th_vocational_mark.english"/>
+                </div>
+                <div><label for="maths" class="formld-form-label">
+                    Maths Mark*
+                </label>
+                <input type="number" name="maths" id="maths" class="formbold-form-input"  [(ngModel)]="student_12th_vocational_mark.maths"/>
+            </div>
+            <div><label for="physics" class="formld-form-label">
+                Physics Mark*
+            </label>
+            <input type="number" name="physics" id="physics" class="formbold-form-input" [(ngModel)]="student_12th_vocational_mark.physics" />
+        </div>
+
+            </div>
+
+            <div class="formbold-input-flex">
+
+                <div><label for="chemistry" class="formld-form-label">
+                    Chemistry Mark*
+                </label>
+                <input type="number" name="chemistry" id="chemistry" class="formbold-form-input"  [(ngModel)]="student_12th_vocational_mark.chemistry"/>
+            </div>
+            <div><label for="voc_theory_name" class="formld-form-label">
+                Voc Theory Name*
+            </label>
+            <input type="text" name="voc_theory_name" id="voc_theory_name" class="formbold-form-input"  [(ngModel)]="student_12th_vocational_mark.voc_theory_name"/>
+        </div>
+                <div><label for="voc_theory_mark" class="formld-form-label">
+                        Voc Theory Mark*
+                    </label>
+                    <input type="number" name="voc_theory_mark" id="voc_theory_mark" class="formbold-form-input" [(ngModel)]="student_12th_vocational_mark.voc_theory_mark" />
+                </div>
+                <div><label for="voc_practical_name" class="formld-form-label">
+                    Voc Practical Name*
+                </label>
+                <input type="text" name="voc_practical_name" id="voc_practical_name" class="formbold-form-input"  [(ngModel)]="student_12th_vocational_mark.voc_practical_name"/>
+            </div>
+
+            </div>
+
+
+
+            <div class="formbold-input-flex">
+                
+            <div><label for="voc_practical_mark" class="formld-form-label">
+                Voc Practical Mark*
+            </label>
+            <input type="number" name="voc_practical_name" id="voc_practical_name" class="formbold-form-input" [(ngModel)]="student_12th_vocational_mark.voc_practical_mark" />
+        </div>
+        
+    <div><label for="percentage" class="formld-form-label">
+        Percentage*
+    </label>
+    <input type="number" name="percentage" id="percentage" class="formbold-form-input"  [(ngModel)]="student_12th_vocational_mark.percentage"/>
+</div>
+<div><label for="cutoff" class="formld-form-label">
+    cutoff*
+</label>
+<input type="number" name="cutoff" id="cutoff" class="formbold-form-input"  [(ngModel)]="student_12th_vocational_mark.cutoff"/>
+</div>
+<div><label for="total" class="formld-form-label">
+    Total*
+</label>
+<input type="number" name="total" id="total" class="formbold-form-input"  [(ngModel)]="student_12th_vocational_mark.total"/>
+</div>
+            </div>
+
+            <button type="submit"  [disabled]='!myForm.form.valid'
+            [ngClass]="{'default-button':!myForm.form.valid,'blue-button':myForm.form.valid}"type="submit">Add To DB</button>
+        </form>
+    </div>
+</div>

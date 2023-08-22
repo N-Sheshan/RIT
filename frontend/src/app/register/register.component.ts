@@ -13,6 +13,8 @@ registerfromdata = new FormGroup({
   email : new FormControl("",[Validators.required,Validators.email]),
   password : new FormControl("",[Validators.required,Validators.minLength(8),Validators.maxLength(15),Validators.pattern("['a-zA-Z0-9'].*")]),
   re_password : new FormControl("",[Validators.required]),
+  FacultyID: new FormControl("", [Validators.required]),
+  Role: new FormControl("", [Validators.required])
 });
 
   submitdata(){
@@ -34,6 +36,11 @@ registerfromdata = new FormGroup({
   }; get Re_password():FormControl{
     return this.registerfromdata.get("re_password") as FormControl
   };
-
+  get FacultyID():FormControl{
+    return this.registerfromdata.get("FacultyID") as FormControl
+  }; 
+  get Role():FormControl{
+    return this.registerfromdata.get("Role") as FormControl
+  }
 
 }

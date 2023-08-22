@@ -40,12 +40,30 @@ export class SidebarComponent implements OnInit {
       icon:'bx bx-receipt',
       link:'/mainpage/1oth_marks_entry'
     },
-    // {
-    //   id:6,
-    //   name:'Loan Plans',
-    //   icon:'bx bx-briefcase-alt-2',
-    //   link:'/loan-types'
-    // },
+    {
+      id:6,
+      name:'12th_Stateboard_mark',
+      icon:'bx bx-receipt',
+      link:'/mainpage/12th_Stateboard_mark'
+    },
+    {
+      id:7,
+      name:'12th_icse_cbsc_mark',
+      icon:'bx bx-briefcase-alt-2',
+      link:'/mainpage/12th_icse_cbsc_mark'
+    },
+    {
+      id:8,
+      name:'12th_vocational_mark',
+      icon:'bx bx-trending-up',
+      link:'/mainpage/12th_vocational_mark'
+    },
+    {
+      id:9,
+      name:'student_arrer',
+      icon:'bx bx-briefcase-alt-2',
+      link:'/mainpage/student_arrer'
+    },
     // {
     //   id:7,
     //   name:'Reports',

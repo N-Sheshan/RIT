@@ -12,6 +12,11 @@ import { MainpageComponent } from './mainpage/mainpage.component';
 import { PagenotfoundComponent } from './pagenotfound/pagenotfound.component';
 import { RegisterComponent } from './register/register.component';
 import { TenthMarksComponent } from './student/tenth-marks/tenth-marks.component';
+import { TwelvethIcseCbseMarkComponent } from './student/twelveth-icse-cbse-mark/twelveth-icse-cbse-mark.component';
+import { TwelvethStateboardMarkComponent } from './student/twelveth-stateboard-mark/twelveth-stateboard-mark.component';
+import { StudentTwelvethVocMarkComponent } from './student/student-twelveth-voc-mark/student-twelveth-voc-mark.component';
+import { StudentarrerComponent } from './student/student-arrer/student-arrer.component';
+
 
 const routes: Routes = [
   {path:'',component:LoginComponent},
@@ -22,7 +27,12 @@ const routes: Routes = [
   {path:'university_entry',component:UniversityMarksComponent},
   {path:'10th_marks',component:StudentTenthMarkComponent},
   {path:'erp_student_master',component:ErpStudentMasterComponent},
-  {path:'1oth_marks_entry',component:TenthMarksComponent},]},
+  {path:'1oth_marks_entry',component:TenthMarksComponent},
+  {path:'12th_Stateboard_mark',component:TwelvethStateboardMarkComponent},
+  {path:'12th_icse_cbsc_mark',component:TwelvethIcseCbseMarkComponent},
+  {path:'12th_vocational_mark',component:StudentTwelvethVocMarkComponent},
+  {path:'student_arrer',component:StudentarrerComponent}
+]},
 
   
 

@@ -1,0 +1,178 @@
+<div class="formbold-main-wrapper">
+    <div class="formbold-form-wrapper">
+        <form (submit)="To_DB()" #myForm="ngForm">
+            <link rel="stylesheet" href="student-arrer.component.css">
+            <div class="formbold-form-title">
+                <h2 class="">STUDENT ARRER</h2>
+
+            </div>
+
+            <div class="formbold-input-flex">
+                <div>
+                    <label for="degree_code" class="formbold-form-label">
+                        degree_code*
+                    </label>
+                    <select name="degree_code" id="degree_code" class="formbold-form-input"
+                        [(ngModel)]=" studentarrer.degree_code" required>
+                        <option value="" disabled selected hidden>Select degree_code</option>
+                        <option [value]="2021">2021</option>
+                        <option [value]="2022">2022</option>
+            
+                    </select>
+                </div>
+
+                <div>
+                    <label for="batch_no" class="formbold-form-label">
+                        Batch*
+                    </label>
+                    <select name="batch_no" id="batch_no" class="formbold-form-input"
+                        [(ngModel)]=" studentarrer.batch_no" required>
+                        <option value="" disabled selected hidden>Select Batch</option>
+                        <option [value]="2021">2021</option>
+                        <option [value]="2022">2022</option>
+                        <option [value]="2023">2023</option>
+                        <option [value]="2024">2024</option>
+                        <option [value]="2025">2025</option>
+                    </select>
+                </div>
+
+                <div>
+                    <label for="dept_code" class="formbold-form-label">
+                        dept_code*
+                    </label>
+                    <select name="dept_code" id="dept_code" class="formbold-form-input"
+                        [(ngModel)]=" studentarrer.dept_code" required>
+                        <option value="" disabled selected hidden>Select dept_code</option>
+                        
+                            <option [value]="1">B.E</option>
+                            <option [value]="2">B.TECH</option>
+                          
+            
+                    </select>
+                </div>
+
+                <div>
+                    <label for="regulation_no" class="formbold-form-label">
+                        regulation_no*
+                    </label>
+                    <select name="regulation_no" id="regulation_no" class="formbold-form-input"
+                        [(ngModel)]=" studentarrer.regulation_no" required>
+                        <option value="" disabled selected hidden>Select regulation_no</option>
+                        <option [value]="2021">2021</option>
+                        <option [value]="2022">2022</option>
+                    </select>
+                </div>
+
+
+            </div>
+
+
+            
+            <div class="formbold-input-flex">
+                <div>
+                    <label for="semester" class="formbold-form-label"> Semester* </label>
+                    <select name="Semester" id="Semester" class="formbold-form-input"
+                        [(ngModel)]=" studentarrer.semester" required>
+                        <option value="" disabled selected hidden>Select Semester</option>
+                        <option [value]="1"> 1</option>
+                        <option [value]="2"> 2</option>
+                        <option [value]="3"> 3</option>
+                        <option [value]="4"> 4</option>
+                        <option [value]="5"> 5</option>
+                        <option [value]="6"> 6</option>
+                        <option [value]="7"> 7</option>
+                        <option [value]="8"> 8</option>
+                    </select>
+                </div>
+                
+                <div>
+                    <label for="no_of_arrer_current_sem" class="formbold-form-label"> NO_of_Arrer_Current_sem* </label>
+                    <select name="no_of_arrer_current_sem" id="no_of_arrer_current_sem" class="formbold-form-input"
+                        [(ngModel)]="  studentarrer.no_of_arrer_current_sem" required>
+                        <option value="" disabled selected hidden>NO_of_Arrer_Current_sem</option>
+                        <option [value]="1"> 1</option>
+                        <option [value]="2"> 2</option>
+                
+                    </select>
+                </div>
+
+                <div>
+                    <label for="reg_no" class="formbold-form-label">
+                     Register_No*
+                    </label>
+                    <input type="text" name="reg_no" id="reg_no" class="formbold-form-input"
+                      placeholder="Enter reg_no" [(ngModel)]=" studentarrer.reg_no" required />
+                </div>
+            </div>
+
+                
+                
+                <!-- <div><label for="Register_No" class="formbold-form-label">
+                        Register_No*
+                    </label>
+                    <input type="text" name="Register_No" id="Register_No" class="formbold-form-input"
+                        placeholder="Enter Register_No" [(ngModel)]="University_Marks_data.reg_no" required />
+                </div>
+                <div><label for="Course_code" class="formbold-form-label">
+                        Course_code*
+                    </label>
+                    <input type="text" name="Course_code" id="Course_code" class="formbold-form-input"
+                        placeholder="Enter Course_code" [(ngModel)]="University_Marks_data.course_code" required />
+                </div>
+                <div><label for="Grade" class="formbold-form-label">
+                        Grade*
+                    </label>
+                    <select name="Grade" id="Regulation" class="formbold-form-input"
+                        [(ngModel)]="University_Marks_data.grade" required>
+                        <option value="" disabled selected hidden>Select Grade</option>
+                        <option value="O">O</option>
+                        <option value="A+">A+</option>
+                        <option value="A">A</option>
+                        <option value="B+">B+</option>
+                        <option value="B">B</option>
+                        <option value="C">C</option>
+                        <option value="RA">RA</option>
+                        <option value="U">U</option>
+
+                    </select>
+                </div> -->
+
+
+            
+
+            <div class="formbold-input-flex">
+                <div>
+                    <label for="no_of_total_arrer" class="formbold-form-label"> NO_of_Total_Arrer* </label>
+                    <select name="no_of_total_arrer" id="no_of_total_arrer" class="formbold-form-input"
+                        [(ngModel)]=" studentarrer.no_of_total_arrer" required>
+                        <option value="" disabled selected hidden>NO_of_Total_Arrer</option>
+                        <option [value]="1"> 1</option>
+                        <option [value]="2"> 2</option>
+                
+                
+                    </select>
+                </div>
+                <div>
+                    <label for="backlog" class="formbold-form-label"> Backlog* </label>
+                    <select name="backlog" id="backlog" class="formbold-form-input"
+                        [(ngModel)]=" studentarrer.backlog" required>
+                        <option value="" disabled selected hidden>Backlog</option>
+                        <option [value]="1"> 1</option>
+                        <option [value]="2"> 2</option>
+                
+                
+                    </select>
+                </div>
+                
+
+
+            </div>
+
+
+
+            <button type="submit" [disabled]='!myForm.form.valid'
+                [ngClass]="{'default-button':!myForm.form.valid,'blue-button':myForm.form.valid}">Add To DB</button>
+        </form>
+    </div>
+</div>
+<!-- me to calculat gpa and cgpa insert into student_gpa_cgpa -->

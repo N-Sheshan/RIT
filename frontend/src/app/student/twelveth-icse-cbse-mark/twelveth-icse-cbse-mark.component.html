@@ -1,0 +1,160 @@
+<div class="formbold-main-wrapper">
+    <div class="formbold-form-wrapper">
+        <!-- <img src="your-image-url-here.jpg"> -->
+        <form  (submit)="To_DB()" #myForm="ngForm">
+            <div class="formbold-form-title">
+                <h2 class="">12th MARK ICSE CBSE</h2>
+
+            </div>
+
+            <div class="formbold-input-flex">
+                <div>
+                    <label for="batch_no" class="formbold-form-label">
+                        Batch_no*
+                    </label>
+                    <select name="batch_no" id="batch_no" class="formbold-form-input"  [(ngModel)]="student_12th_ISCE_mark_data.batch_no"
+                         required>
+                        <option value="" disabled selected hidden>Select year</option>
+                        <option [value]="2020">2020-2024</option>
+                        <option [value]="2021">2021-2025</option>
+                        <option [value]="2022">2022-2026</option>
+                        <option [value]="2023">2023-2027</option>
+                        <option [value]="2024">2024-2028</option>
+                    </select>
+                    <!-- <div *ngIf="yearField.invalid && yearField.touched"s class="error-message">
+                            Year is required.
+                          </div> -->
+                </div>
+                <div>
+
+                    <label for="education_type" class="formbold-form-label" >Education_Type* </label>
+                    <select name="education_type" class="formbold-form-input" [(ngModel)]="student_12th_ISCE_mark_data.education_type"
+                        required>
+                        <option value="" disabled selected hidden>Select education_type</option>
+                        <option value="State_Board">State Board</option>
+                        <option value="CBSC">CBSC</option>
+                        <option value="ICSC">ICSE</option>
+                    </select>
+
+                </div>
+                <div>
+                    <label for="year_of_passing" class="formbold-form-label"> year_of_passing* </label>
+                    <select name="year_of_passing" id="year_of_passing" class="formbold-form-input" [(ngModel)]="student_12th_ISCE_mark_data.year_of_passing"
+                         required>
+                        <option value="" disabled selected hidden>Select year_of_passing</option>
+                        <!-- <option [value]="2017">2017</option> -->
+                        <option [value]="2020">2020</option>
+                        <option [value]="2021">2021</option>
+                        <option [value]="2022">2022</option>
+                        <option [value]="2023">2023</option>
+                        <option [value]="2024">2024</option>
+
+                    </select>
+                </div>
+            </div>
+            <div class="formbold-input-flex">
+                <!-- <div><label for="Vertical_code" class="formld-form-label">
+                            Vertical code*
+                        </label>
+                        <input type="text" name="Vertical_code" id="Vertical_code" class="formbold-form-input" />
+                    </div> -->
+                <div><label for="language1 " class="formbold-form-label">
+                    language1  *
+                    </label>
+                    <input type="text" name="language1 " id="language1   " class="formbold-form-input" [(ngModel)]="student_12th_ISCE_mark_data.language1"
+                         required placeholder="Enter Your language1 Mark" />
+                </div>
+                <div><label for="language1_mark" class="formbold-form-label">
+                    language1_mark *
+                </label>
+                <input type="number" name="language1_mark" id="language1_mark" class="formbold-form-input" [(ngModel)]="student_12th_ISCE_mark_data.language1_mark"
+                 maxlength="3" minlength="1"
+                   required placeholder="Enter Your language1_mark  Mark" />
+            </div>
+            <div><label for="language2" class="formbold-form-label">
+                language2*
+            </label>
+            <input type="text" name="language2" id="language2" class="formbold-form-input" [(ngModel)]="student_12th_ISCE_mark_data.language2"
+               required placeholder="Enter Your language2 Mark" />
+        </div>
+
+        <div><label for="language2_Mark" class="formbold-form-label">
+            language2_Mark*
+        </label>
+        <input type="number" name="language2_Mark" id="language2_Mark" class="formbold-form-input" [(ngModel)]="student_12th_ISCE_mark_data.language2_Mark"
+           required placeholder="Enter Your language2_Mark Mark" />
+    </div>
+            </div>
+
+            <div class="formbold-input-flex">
+                <div><label for="english" class="formbold-form-label">
+                    english*
+                </label>
+                <input type="number" name="english" id="english" class="formbold-form-input"  [(ngModel)]="student_12th_ISCE_mark_data.english"
+                   required placeholder="Enter Your english Mark" />
+            </div>
+            <div><label for="maths" class="formbold-form-label">
+                maths*
+            </label>
+            <input type="number" name="maths" id="maths" class="formbold-form-input"  [(ngModel)]="student_12th_ISCE_mark_data.maths"
+                placeholder="Enter Your maths Mark" />
+        </div>
+
+        <div><label for="physics" class="formbold-form-label">
+            physics*
+        </label>
+        <input type="number" name="physics" id="physics" class="formbold-form-input" [(ngModel)]="student_12th_ISCE_mark_data.physics"
+            placeholder="Enter Your physics Mark" />
+    </div>
+
+            </div>
+            <div class="formbold-input-flex">
+                <div><label for="chemistry" class="formbold-form-label">
+                    chemistry*
+                </label>
+                <input type="number" name="chemistry" id="chemistry" class="formbold-form-input"  [(ngModel)]="student_12th_ISCE_mark_data.chemistry"
+                   required placeholder="Enter Your Tamil Mark" />
+            </div>
+            <div><label for="biology" class="formbold-form-label">
+                biology*
+            </label>
+            <input type="number" name="biology" id="biology" class="formbold-form-input"  [(ngModel)]="student_12th_ISCE_mark_data.biology"
+                placeholder="Enter Your biology Mark" />
+        </div>
+
+        <div><label for="computer_science" class="formbold-form-label">
+            computer_science*
+        </label>
+        <input type="number" name="computer_science" id="computer_science" class="formbold-form-input" [(ngModel)]="student_12th_ISCE_mark_data.computer_science"
+            placeholder="Enter Your computer_science Mark" />
+    </div>
+
+            </div>
+
+            <div class="formbold-input-flex">
+                <div><label for="total" class="formbold-form-label">
+                    Total*
+                </label>
+                <input type="number" name="total" id="total" class="formbold-form-input"  [(ngModel)]="student_12th_ISCE_mark_data.total"
+                   required placeholder="Enter Your total Mark" />
+            </div>
+            <div><label for="percentage" class="formbold-form-label">
+                Percentage*
+            </label>
+            <input type="number" name="percentage" id="percentage" class="formbold-form-input" [(ngModel)]="student_12th_ISCE_mark_data.percentage"
+               required placeholder="Enter Your percentage Mark" />
+        </div>
+        <div><label for="cutoff" class="formbold-form-label">
+            Cutoff*
+        </label>
+        <input type="number" name="cutoff" id="cutoff" class="formbold-form-input"  [(ngModel)]="student_12th_ISCE_mark_data.cutoff"
+           required placeholder="Enter Your cutoff Mark" />
+    </div>
+            </div>
+
+            <button type="submit"  [disabled]='!myForm.form.valid'
+            [ngClass]="{'default-button':!myForm.form.valid,'blue-button':myForm.form.valid}" >Add To DB</button>
+        </form>
+    </div>
+</div>
+<!--  -->

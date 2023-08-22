@@ -28,6 +28,10 @@ import { StudentTenthMarkComponent } from './JA/student-tenth-mark/student-tenth
 import { ErpStudentMasterComponent } from './JA/erp-student-master/erp-student-master.component';
 import { AssesmentEntryComponent } from './faculty/assesment-entry/assesment-entry.component';
 import { TenthMarksComponent } from './student/tenth-marks/tenth-marks.component';
+import { TwelvethStateboardMarkComponent } from './student/twelveth-stateboard-mark/twelveth-stateboard-mark.component';
+import { TwelvethIcseCbseMarkComponent } from './student/twelveth-icse-cbse-mark/twelveth-icse-cbse-mark.component';
+import { StudentTwelvethVocMarkComponent } from './student/student-twelveth-voc-mark/student-twelveth-voc-mark.component';
+import { StudentarrerComponent } from './student/student-arrer/student-arrer.component';
 
 
 
@@ -39,8 +43,10 @@ import { TenthMarksComponent } from './student/tenth-marks/tenth-marks.component
     FooterComponent,
     SidebarComponent,
     DashboardComponent,
+    StudentTwelvethVocMarkComponent,
+    StudentarrerComponent,
     PagenotfoundComponent,
-   LoginComponent,RegisterComponent,FnavbarComponent, MainpageComponent, FirstpageComponent, CourseMasterComponent, UniversityMarksComponent, StudentTenthMarkComponent, ErpStudentMasterComponent, AssesmentEntryComponent, TenthMarksComponent
+   LoginComponent,RegisterComponent,FnavbarComponent, MainpageComponent, FirstpageComponent, CourseMasterComponent, UniversityMarksComponent, StudentTenthMarkComponent, ErpStudentMasterComponent, AssesmentEntryComponent, TenthMarksComponent, TwelvethStateboardMarkComponent, TwelvethIcseCbseMarkComponent
   ],
   imports: [
     BrowserModule,

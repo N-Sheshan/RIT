@@ -1,0 +1,137 @@
+<div class="formbold-main-wrapper">
+    <div class="formbold-form-wrapper">
+        <!-- <img src="your-image-url-here.jpg"> -->
+        <form (submit)="To_DB()" #myForm="ngForm" >
+            <div class="formbold-form-title">
+                <h2 class="">12th MARK STATE BOARD MARK ENTRY</h2>
+
+            </div>
+
+            <div class="formbold-input-flex">
+                <div>
+                    <label for="Year" class="formbold-form-label">
+                        Batch_no*
+                    </label>
+                    <select name="Regulation" id="Year" class="formbold-form-input" [(ngModel)]="student_12th_mark_data.batch_no"
+                         required>
+                        <option value="" disabled selected hidden>Select year</option>
+                        <option [value]="2020">2020-2024</option>
+                        <option [value]="2021">2021-2025</option>
+                        <option [value]="2022">2022-2026</option>`          
+                        <option [value]="2023">2023-2027</option>
+                        <option [value]="2024">2024-2028</option>
+                    </select>
+                    <!-- <div *ngIf="yearField.invalid && yearField.touched"s class="error-message">
+                            Year is required.
+                          </div> -->
+                </div>
+                <div>
+
+                    <label for="Semester" class="formbold-form-label">Education_Type* </label>
+                    <select name="Regulation" class="formbold-form-input" [(ngModel)]="student_12th_mark_data.education_type"
+                        required>
+                        <option value="" disabled selected hidden>Select education_type</option>
+                        <option value="State_Board">State Board</option>
+                        <option value="CBSC">CBSC</option>
+                        <option value="ICSC">ICSE</option>
+                    </select>
+
+                </div>
+                <div>
+                    <label for="Regulation" class="formbold-form-label"> year_of_passing* </label>
+                    <select name="Regulation" id="Regulation" class="formbold-form-input" [(ngModel)]="student_12th_mark_data.year_of_passing"
+                         required> 
+                        <option value="" disabled selected hidden>Select year_of_passing</option>
+                        <!-- <option [value]="2017">2017</option> -->
+                        <option [value]="2021">2020</option>
+                        <option [value]="2021">2021</option>
+                        <option [value]="2021">2022</option>
+                        <option [value]="2021">2023</option>
+                        <option [value]="2021">2024</option>
+
+                    </select>
+                </div>
+            </div>
+            <div class="formbold-input-flex">
+                <!-- <div><label for="Vertical_code" class="formld-form-label">
+                            Vertical code*
+                        </label>
+                        <input type="text" name="Vertical_code" id="Vertical_code" class="formbold-form-input" />
+                    </div> -->
+                <div><label for="tamil" class="formbold-form-label">
+                    Tamil*
+                    </label>
+                    <input type="text" name="tamil" id="tamil" class="formbold-form-input" [(ngModel)]="student_12th_mark_data.tamil"
+                         required placeholder="Enter Your Tamil Mark" />
+                </div>
+                <div><label for="english" class="formbold-form-label">
+                    English*
+                </label>
+                <input type="number" name="english" id="english" class="formbold-form-input" maxlength="3" minlength="1" [(ngModel)]="student_12th_mark_data.english"
+                   required placeholder="Enter Your Tamil Mark" />
+            </div>
+            <div><label for="maths" class="formbold-form-label">
+                Maths*
+            </label>
+            <input type="text" name="maths" id="maths" class="formbold-form-input" [(ngModel)]="student_12th_mark_data.maths"
+               required placeholder="Enter Your Tamil Mark" />
+        </div>
+
+        <div><label for="physics" class="formbold-form-label">
+            Physics*
+        </label>
+        <input type="text" name="physics" id="physics" class="formbold-form-input" [(ngModel)]="student_12th_mark_data.physics"
+           required placeholder="Enter Your Tamil Mark" />
+    </div>
+            </div>
+
+            <div class="formbold-input-flex">
+                <div><label for="chemistry" class="formbold-form-label">
+                    Chemistry*
+                </label>
+                <input type="text" name="chemistry" id="chemistry" class="formbold-form-input"  [(ngModel)]="student_12th_mark_data.chemistry"
+                   required placeholder="Enter Your Tamil Mark" />
+            </div>
+            <div><label for="biology" class="formbold-form-label">
+                Biology*
+            </label>
+            <input type="text" name="biology" id="biology" class="formbold-form-input" [(ngModel)]="student_12th_mark_data.biology"
+                placeholder="Enter Your Tamil Mark" />
+        </div>
+
+        <div><label for="computer_science" class="formbold-form-label">
+            Computer_Science*
+        </label>
+        <input type="text" name="computer_science" id="computer_science" class="formbold-form-input"[(ngModel)]="student_12th_mark_data.computer_science"
+            placeholder="Enter Your computer_science Mark" />
+    </div>
+
+            </div>
+
+            <div class="formbold-input-flex">
+                <div><label for="total" class="formbold-form-label">
+                    Total*
+                </label>
+                <input type="text" name="total" id="total" class="formbold-form-input" [(ngModel)]="student_12th_mark_data.total"
+                   required placeholder="Enter Your total Mark" />
+            </div>
+            <div><label for="percentage" class="formbold-form-label">
+                Percentage*
+            </label>
+            <input type="text" name="percentage" id="percentage" class="formbold-form-input" [(ngModel)]="student_12th_mark_data.percentage"
+               required placeholder="Enter Your percentage Mark" />
+        </div>
+        <div><label for="cutoff" class="formbold-form-label">
+            Cutoff*
+        </label>
+        <input type="text" name="cutoff" id="cutoff" class="formbold-form-input" [(ngModel)]="student_12th_mark_data.cutoff"
+           required placeholder="Enter Your cutoff Mark" />
+    </div>
+            </div>
+
+            <button type="submit" [disabled]='!myForm.form.valid'
+            [ngClass]="{'default-button':!myForm.form.valid,'blue-button':myForm.form.valid}" >Add To DB</button>
+        </form>
+    </div>
+</div>
+<!--  -->

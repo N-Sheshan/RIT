@@ -265,6 +265,8 @@ body {
   margin: 0 55px; }
 
 .form-title {
+  display: flex;
+    justify-content: center;
   margin-bottom: 33px; }
 
 .signup-image {
@@ -611,6 +613,7 @@ label.valid {
   }
 
   .form-title {
+    
     text-align: center; } }
 @media screen and (max-width: 400px) {
   .social-login {

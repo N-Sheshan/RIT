@@ -11,7 +11,7 @@
                 <div class="signup-form">
                     <h2 class="form-title">Sign up</h2>
 
-                    <form method="POST" class="register-form" id="register-form" [formGroup]="registerfromdata"
+                    <form method="POST" class="register1-form" id="register1-form" [formGroup]="registerfromdata"
                         (ngSubmit)="submitdata()">
                         <div class="line">
                             <div class="form-group">
@@ -25,6 +25,17 @@
                                 is too short</div>
                             <div class="error" *ngIf="Name.errors?.['pattern'] && (Name.touched || Name.dirty)">Name
                                 should start with Alphabet</div>
+                        </div>
+
+                        <div class="line">
+                            <div class="form-group">
+                                <label for="name"><i class='bx bxs-user'></i></label>
+                                <input type="text" name="name" id="name" placeholder="FacultyID" formControlName="FacultyID"
+                                    autocomplete="off" />
+                            </div>
+                            <div class="error" *ngIf="FacultyID.errors?.['required'] && (FacultyID.touched || FacultyID.dirty)">FacultyID is
+                                requied</div>
+                          
                         </div>
                         <div class="line">
                             <div class="form-group">
@@ -51,7 +62,7 @@
                             </div>
                             <div class="error"
                                     *ngIf="Password.errors?.['pattern']  && (Password.touched || Password.dirty)">
-                                    Password shold be in combination of number and charaters </div>
+                                    Password should be in combination of number and charaters </div>
                             </div>
                        
                         <div class="line">
@@ -67,7 +78,35 @@
                                     </div>
                             </div>
                         </div>
+                        <div class="line">
+                            <div class="form-group">
+                              <label for="Role"><i class='bx bxs-user'></i></label>
+                              <select id="Role" name="Role" formControlName="Role" required>
+                                <option value="">Select Role</option>
+                                <option value="HOD">HOD</option>
+                                <option value="Faculty">Faculty</option>
+                              </select>
+                              <div class="error"
+                              *ngIf="Role.errors?.['required'] && (Role.touched || Role.dirty)">
+                                Role is required.
+                              </div>
+                            </div>
+                        </div>
+                          
 
+                        <!-- <div class="line">
+                            <div class="form-group">
+                                <label for="FacultyID"><i class='bx bxs-user'></i></label>
+                                <input type="text" name="FacultyID" id="FacultyID" placeholder="ID" formControlName="ID"
+                                    autocomplete="off" />
+                            </div>
+                        
+                            
+                                <div class="error" *ngIf="FacultyID.errors?.['required'] && (FacultyID.touched || FacultyID.dirty)">Name is
+                                    requied</div>
+
+                        </div> -->
+                    
 
 
                         <!-- <div class="form-group">

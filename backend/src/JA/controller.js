@@ -136,11 +136,61 @@ const add_erp_student_master = async (req, res) => {
   }
 };
 
+//we add the data is in 12th_Stateboard_mark_table
+
+const add_12th_Stateboard_mark = async (req, res) => {
+
+  const { degree_code,batch_no,dept_code,education_type,year_of_passing,tamil,english,maths,physics,chemistry,biology,computer_science,total,percentage,cutoff} = req.body;
+
+  try {
+    await pool.query(query.add_student_12th_mark,[degree_code,batch_no,dept_code,education_type,year_of_passing,tamil,english,maths,physics,chemistry,biology,computer_science,total,percentage,cutoff]);
+    res.status(201).json({ status: 'Success', message: 'Data saved successfully.' });
+  } catch (error) {
+    console.error('Error saving data to database:', error);
+    res.status(500).json({ status: 'Error', message: 'Failed to save data.' });
+  }
+}
+
+
+//we the data is in student_12_mark_table
+
+const add_12th_icse_cbsc_mark = async (req, res) => {
+
+  const {degree_code,batch_no,dept_code,education_type,year_of_passing,language1,language1_mark,language2,language2_Mark,english,maths,physics,chemistry,biology,computer_science,total,percentage,cutoff} = req.body;
+
+  try {
+    await pool.query(query.add_12th_icse_cbsc_mark,[degree_code,batch_no,dept_code,education_type,year_of_passing,language1,language1_mark,language2,language2_Mark,english,maths,physics,chemistry,biology,computer_science,total,percentage,cutoff]);
+    res.status(201).json({ status: 'Success', message: 'Data saved successfully.' });
+  } catch (error) {
+    console.error('Error saving data to database:', error);
+    res.status(500).json({ status: 'Error', message: 'Failed to save data.' });
+  }
+}
+
+
+//we add the data is in 12th_vocational_mark
+
+const add_12th_vocational_mark = async (req, res) => {
+
+  const {degree_code,batch_no,dept_code,education_type,year_of_passing,language,language_mark,maths,physics,chemistry,voc_theory_name,voc_theory_mark,voc_practical_name,voc_practical_mark,total,percentage,cutoff} = req.body;
+
+  try {
+    await pool.query(query.add_12th_vocational_mark,[degree_code,batch_no,dept_code,education_type,year_of_passing,language,language_mark,maths,physics,chemistry,voc_theory_name,voc_theory_mark,voc_practical_name,voc_practical_mark,total,percentage,cutoff]);
+    res.status(201).json({ status: 'Success', message: 'Data saved successfully.' });
+  } catch (error) {
+    console.error('Error saving data to database:', error);
+    res.status(500).json({ status: 'Error', message: 'Failed to save data.' });
+  }
+}
+
 module.exports = {
   getcoursedata,
   addcoursdata,
   add_university_mark_data,
   get_university_mark,
-  add_erp_student_master
+  add_erp_student_master,
+  add_12th_Stateboard_mark,
+  add_12th_icse_cbsc_mark,
+  add_12th_vocational_mark
 }
 
