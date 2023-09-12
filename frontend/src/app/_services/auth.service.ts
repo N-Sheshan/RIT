@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
 import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 @Injectable({
@@ -8,8 +9,8 @@ export class AuthService {
 
   constructor(private router: Router,private http:HttpClient) { }
 
-  rootURL = '/api/v1/JA'
-
+  rootURL = 'http://172.16.71.2:9090/api/v1/JA/login'
+   role :any =null;
 
   isauthenticated() {
     if (sessionStorage.getItem('token') !== null) {
@@ -26,12 +27,10 @@ export class AuthService {
   }
 
 // ------------------------------------------------------------------------------------
-
-addUser(uesr:any){
-  return this.http.post(this.rootURL+'/',{uesr});
+// for login code
+login(username:string,password:string): Observable<any>{
+  return this.http.post(this.rootURL, { username, password })
 }
-  
-
 
 
 }

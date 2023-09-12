@@ -1,5 +1,8 @@
 import { Component } from '@angular/core';
+import { AuthService } from '../_services/auth.service';
+import { HttpClientModule } from '@angular/common/http';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { error } from 'jquery';
 
 @Component({
   selector: 'app-login',
@@ -8,7 +11,8 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 })
 export class LoginComponent {
 
-sample='bala';
+
+constructor(private loginauth:AuthService){}
 
 loginfromdata = new FormGroup({
   username: new FormControl("",[Validators.required,Validators.pattern("[a-zA-Z].*")]),
@@ -23,8 +27,21 @@ get Password(){
   return this.loginfromdata.get("password") as FormControl 
 }
 
-submitdata(){
-  
+submitdata() {
+  if (this.loginfromdata.valid) {
+    const formData = this.loginfromdata.value;
+    if (formData.username && formData.password) {
+      this.loginauth.login(formData.username, formData.password).subscribe(
+        (response: any) => {
+          this.loginauth.role=response[0].role
+        },
+        (error: any) => {
+        }
+      );
+    } else {
+      console.error('Username or password is not defined.');
+    }
+  }
 }
 
 }

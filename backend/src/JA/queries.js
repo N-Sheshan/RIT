@@ -7,7 +7,8 @@ const add_erp_student_master = "insert into erp_student_master (name,reg_no, ref
 const add_student_12th_mark = "insert into student_12th_marks_stateboard (degree_code,batch_no,dept_code,education_type,year_of_passing,tamil,english,maths,physics,chemistry,biology,computer_science,total,percentage,cutoff) values ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15);"
 const add_12th_icse_cbsc_mark  = "insert into student_12th_marks_icse_cbse (degree_code,batch_no,dept_code,education_type,year_of_passing,language1,language1_mark,language2,language2_Mark,english,maths,physics,chemistry,biology,computer_science,total,percentage,cutoff) values ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15,$16,$17,$18);"
 const add_12th_vocational_mark  = "insert into student_12th_marks_voc (degree_code,batch_no,dept_code,education_type,year_of_passing,language,language_mark,maths,physics,chemistry,voc_theory_name,voc_theory_mark,voc_practical_name,voc_practical_mark,total,percentage,cutoff) values ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15,$16,$17,$18);"
-
+const login ="SELECT role FROM user_new WHERE username = $1 AND password = $2";
+const get_university_course_code ="SELECT course_code,credit FROM course_master WHERE semester = $1 AND regulation = $2";
 
 module.exports = {
     getcoursedata,
@@ -19,4 +20,6 @@ module.exports = {
     add_student_12th_mark,
     add_12th_icse_cbsc_mark,
     add_12th_vocational_mark,
+    login,
+    get_university_course_code,
 }

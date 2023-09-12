@@ -9,12 +9,11 @@ app.use(express.json());
 app.use(bodyParser.json());
 app.use(cors());
 
-app.use(express.static("frontend"))
+// app.use(express.static("/index.html"))
 
-// app.get('/',(req,res)=>{
-//     res.send('frontend/src/index.html')
-// })
-
+app.get('/',(req,res)=>{
+    res.send('frontend/src/index.html')
+})
 app.use("/api/v1/JA",jarouters);
 
 

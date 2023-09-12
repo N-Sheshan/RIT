@@ -43,19 +43,51 @@ const addcoursdata = async (req, res) => {
 
 
 // this set of code line for university mark data entry to db
-const add_university_mark_data = async (req, res) => {
-
-  const { degree_code,batch_no, dept_code, regulation_no, semester,course_code, reg_no,grade,section} = req.body;
-
+const add_university_mark_data =  async (req, res) => {
+  const dataToInsert = req.body;
+console.log(typeof dataToInsert[0].courseCode);
+  // SQL query to insert data
+  const insertQuery = `
+  INSERT INTO university_marks
+  (degree_code, batch_no, dept_code, regulation_no, semester, course_code, reg_no, grade, section)
+  VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9)
+  `;
+  
   try {
-    await pool.query(query.add_university_mark_data,[degree_code,batch_no, dept_code, regulation_no, semester,course_code, reg_no,grade,section]);
-    res.status(201).json({ status: 'Success', message: 'Data saved successfully.' });
-  } catch (error) {
-    console.error('Error saving data to database:', error);
-    res.status(500).json({ status: 'Error', message: 'Failed to save data.' });
-  }
-};
+    await pool.connect();
 
+    // Begin a transaction
+    await pool.query('BEGIN');
+
+    // Loop through the data and insert each row
+    for (const row of dataToInsert) {
+      // console.log(row);
+      // for (const key of Object.keys(row)) {
+      //   const value = row[key];
+      //   console.log(`${key}: ${typeof value}`);
+      // } 
+      console.log(row);
+      const {degree_code,batch_no,dept_code,regulation_no,courseCode,semester,reg_no,grade,section} = row;
+      console.log('this for course code'+courseCode);
+      console.log([degree_code,batch_no,dept_code,regulation_no,semester,courseCode,reg_no,grade,section]); 
+      await pool.query(insertQuery,[degree_code,batch_no,dept_code,regulation_no,semester,courseCode,reg_no,grade,section]);
+    }
+
+    // Commit the transaction
+    await pool.query('COMMIT');
+    console.log('Data inserted successfully.');
+    res.status(200).json({ message: 'Data inserted successfully' });
+  } catch (error) {
+    // If an error occurs, roll back the transaction
+    await pool.query('ROLLBACK');
+    console.error('Error inserting data:', error);
+    res.status(500).json({ error: 'Internal server error' });
+  } finally {
+    // Release the client from the pool
+  
+  }
+
+};
 // const add_university_mark_data = async (req, res) => {
 //   const {
 //     degree_code,
@@ -183,6 +215,45 @@ const add_12th_vocational_mark = async (req, res) => {
   }
 }
 
+// this set code for login authentication the users
+const login =async(req,res)=>{
+  const {username,password}=req.body;
+  try{
+    const user = await pool.query(query.login,[username, password]);
+    if (user) {
+      console.log(user.rows)
+      return res.json(user.rows);
+    } else {
+      return res.status(401).json({ error: 'Authentication failed' });
+    }
+  } catch (error) {
+    console.error('Database error:', error);
+    return res.status(500).json({ error: 'Internal server error' });
+  }
+
+}
+
+
+// this block of code for retriving university_course_code fon db --by sheshan
+
+const get_university_course_code =async(req,res)=>{
+  const {semester,regulation}=req.body;
+  console.log(req.body);
+  try{
+    console.log(semester,regulation);
+    const user = await pool.query(query.get_university_course_code,[semester, regulation]);
+    if (user) {
+      console.log(user.rows)
+      return res.json(user.rows);
+    } else {
+      return res.status(401).json({ error: 'incorrect data' });
+    }
+  } catch (error) {
+    console.error('Database error:', error);
+    return res.status(500).json({ error: 'Internal server error' });
+  }
+
+}
 module.exports = {
   getcoursedata,
   addcoursdata,
@@ -191,6 +262,8 @@ module.exports = {
   add_erp_student_master,
   add_12th_Stateboard_mark,
   add_12th_icse_cbsc_mark,
-  add_12th_vocational_mark
+  add_12th_vocational_mark,
+  login,
+  get_university_course_code,
 }
 
