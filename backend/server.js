@@ -11,9 +11,7 @@ app.use(cors());
 
 // app.use(express.static("/index.html"))
 
-app.get('/',(req,res)=>{
-    res.send('frontend/src/index.html')
-})
+app.use(express.static("frontend"))
 app.use("/api/v1/JA",jarouters);
 
 

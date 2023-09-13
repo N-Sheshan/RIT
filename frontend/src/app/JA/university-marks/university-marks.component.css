@@ -168,7 +168,15 @@ body {
   box-shadow: 0px 3px 8px rgba(0, 0, 0, 0.05);
 }
 .error-message {
-  color: red;
+    color: red;
   font-size: 14px;
   margin-top: 5px;
+}
+.table th{
+  text-align: center;
+}
+.table td,select{
+  font-weight:600;
+  color: #000000;
+  text-align: center;
 }

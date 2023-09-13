@@ -240,7 +240,7 @@ const get_university_course_code =async(req,res)=>{
   const {semester,regulation}=req.body;
   console.log(req.body);
   try{
-    console.log(semester,regulation);
+    console.log(typeof semester,typeof regulation);
     const user = await pool.query(query.get_university_course_code,[semester, regulation]);
     if (user) {
       console.log(user.rows)

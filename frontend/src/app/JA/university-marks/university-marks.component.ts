@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { ThisReceiver } from '@angular/compiler';
+import { JsonPipe } from '@angular/common';
 
 @Component({
   selector: 'app-university-marks',
@@ -9,9 +10,11 @@ import { ThisReceiver } from '@angular/compiler';
 })
 export class UniversityMarksComponent implements OnInit {
 
-  constructor(private http: HttpClient) {
-  }
-  data: any[] = [];
+  constructor(private http: HttpClient) {localStorage.setItem('grade', JSON.stringify({'O': 10,'A+': 9,'A': 8,'B+': 7,'B': 6,'C': 5}));}
+  // jsonString = ;
+  grade:{ [key: string]: number }={'O': 10,'A+': 9,'A': 8,'B+': 7,'B': 6,'C': 5}
+  gpa: number = 0;
+  cgpa: number = 0;
   ngOnInit() {
   }
   table=false
@@ -43,6 +46,8 @@ export class UniversityMarksComponent implements OnInit {
   }[] = [];
   // Function to add a new row to the array
   addCourseRow() {
+    
+    
     this.courseGradeData=[]
     // console.log("main loop-------------------",this.ans+=1);
     for (let count of this.sample){
@@ -79,17 +84,34 @@ export class UniversityMarksComponent implements OnInit {
 
 
   To_DB(): void {
-    
+    let sum=0;
     for (let i = 0; i < this.sample.length; i++) {
        this.courseGradeData[i].courseCode = this.sample[i].course_code;
+       let g=this.courseGradeData[i].grade
+       sum += this.sample[i].credit
+       this.gpa +=this.grade[g]*this.sample[i].credit
     }
+    console.log(typeof this.sample);
+    
+    this.gpa = this.gpa/sum;
+    console.log(`this is sum of crdite ${sum}`+'\n this is gpa '+this.gpa);
+    
     console.log("answer",this.courseGradeData);
     this.http.post('http://172.16.71.2:9090/api/v1/JA//university_mark', this.courseGradeData)
-      .subscribe(
-        (response) => { alert('Data saved successfully...'); },
-        // (error) => {console.error('Error submitting form:', error);}
-        (error) => { console.error('Error submitting form:', error); alert('There is a error to insert the data plz check the entrys'); }
-      );
+    .subscribe(
+      (response: any) => {
+        alert('Data saved successfully...');
+      },
+      (error: any) => {
+        console.error('Error submitting form:', error);
+        if (error.error && error.error.error === 'Duplicate key violation. The record already exists.') {
+         alert('There was an error inserting the data. Please check the entries.');
+        } else {  
+          alert('The record already exists.');
+         
+        }
+      }
+    );
     this.courseGradeData = [];
     this.saveUserDataToLocalStorage();
 
@@ -103,41 +125,29 @@ export class UniversityMarksComponent implements OnInit {
       reg_no: '',
       grade: '',
       section: ''
-
     };
+    this.table=false
   }
   sample: any;
   get_course_code() {
-   
-    
     const data = {
-      semester: this.University_Marks_data.semester,
+      semester:Number(this.University_Marks_data.semester),
       regulation: this.University_Marks_data.regulation_no
     };
-    console.log(typeof data.regulation);
-    // console.log(data);
     this.valuesArray = []
     this.http.post('http://172.16.71.2:9090/api/v1/JA/university_course_code', data)
       .subscribe((response: any) => {
         console.log(response);
         this.sample = response;
-        console.log('sample',this.sample);
         for (const key in response) {
           // console.log(response[key]["course_code"]);
           this.valuesArray[response[key]["course_code"]] = response[key]["credit"]
         }
-        console.log('dai', this.valuesArray);
         // Store the valuesArray in sessionStorage after it's populated
         sessionStorage.setItem("course_code", JSON.stringify(this.valuesArray));
 
       });
   }
 
-
-  updateCourseCode(index: number, key: string) {
-    this.courseGradeData[index].courseCode = key;
-    console.log('update',this.courseGradeData[index].courseCode);
-    
-  }
 
 }
