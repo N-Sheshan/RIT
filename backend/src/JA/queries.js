@@ -9,7 +9,7 @@ const add_12th_icse_cbsc_mark  = "insert into student_12th_marks_icse_cbse (degr
 const add_12th_vocational_mark  = "insert into student_12th_marks_voc (degree_code,batch_no,dept_code,education_type,year_of_passing,language,language_mark,maths,physics,chemistry,voc_theory_name,voc_theory_mark,voc_practical_name,voc_practical_mark,total,percentage,cutoff) values ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15,$16,$17,$18);"
 const login ="SELECT role FROM user_new WHERE username = $1 AND password = $2";
 const get_university_course_code ="SELECT course_code,credit FROM course_master WHERE semester = $1 AND regulation = $2";
-
+const get_student_gpa_cgpa = "select semester,gpa,cgpa from student_gpa_cgpa where batch_no=$1 and dept_code=$2 and regulation_no=$3 and reg_no=$4; "
 module.exports = {
     getcoursedata,
     addcoursdata,
@@ -22,4 +22,5 @@ module.exports = {
     add_12th_vocational_mark,
     login,
     get_university_course_code,
+    get_student_gpa_cgpa,
 }

@@ -12,4 +12,5 @@ router.post('/twelveth_icse_cbsc_mark',controller.add_12th_icse_cbsc_mark);
 router.post('/twelveth_vocational_mark',controller.add_12th_vocational_mark);
 router.post('/login',controller.login);
 router.post('/university_course_code',controller.get_university_course_code);
+router.post('/get_student_gpa_cgpa',controller.get_student_gpa_cgpa);
 module.exports = router;

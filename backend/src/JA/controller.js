@@ -240,7 +240,6 @@ const get_university_course_code =async(req,res)=>{
   const {semester,regulation}=req.body;
   console.log(req.body);
   try{
-    console.log(typeof semester,typeof regulation);
     const user = await pool.query(query.get_university_course_code,[semester, regulation]);
     if (user) {
       console.log(user.rows)
@@ -252,8 +251,27 @@ const get_university_course_code =async(req,res)=>{
     console.error('Database error:', error);
     return res.status(500).json({ error: 'Internal server error' });
   }
-
 }
+// this block of code for geting the student cgpa and gpa from sem to n for calculation --by sheshan
+const get_student_gpa_cgpa =async(req,res)=>{
+  const {batch_no,dept_code,regulation_no,reg_no}=req.body;
+  console.log(batch_no,dept_code,regulation_no,reg_no);
+  try{
+    const user = await pool.query(query.get_student_gpa_cgpa,[batch_no,dept_code,regulation_no,reg_no]);
+    if (user) {
+      console.log('cgpa'+res.json(user.rows))
+      return res.json(user.rows);
+    } else {
+      return res.status(401).json({ error: 'incorrect data' });
+    }
+  } catch (error) {
+    console.error('Database error:', error);
+    return res.status(500).json({ error: 'Internal server error' });
+  }
+}
+
+
+
 module.exports = {
   getcoursedata,
   addcoursdata,
@@ -265,5 +283,6 @@ module.exports = {
   add_12th_vocational_mark,
   login,
   get_university_course_code,
+  get_student_gpa_cgpa,
 }
 

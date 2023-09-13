@@ -40,7 +40,7 @@
                 <div>
                     <label for="Regulation" class="formbold-form-label"> Regulation* </label>
                     <select name="Regulation" id="Regulation" class="formbold-form-input"
-                        [(ngModel)]="University_Marks_data.regulation_no" required (change)="get_course_code()">
+                        [(ngModel)]="University_Marks_data.regulation_no" required (change)="get_course_code()" >
                         <option value="" disabled selected hidden>Select Regulation</option>
                         <!-- <option [value]="2017">2017</option> -->
                         <option [value]="2021">2021</option>
@@ -98,16 +98,16 @@
 
             </div>
             <table class="table " *ngIf="table">
-                <thead class="thead-dark">
+                <thead class="thead-dark" style="background-color:#0000 ;">
                   <tr>
-                    <th scope="col">#</th>
+                    <th scope="col">S.No</th>
                     <th scope="col">Course Code</th>
                     <th scope="col">Grade</th>
                   </tr>
                 </thead>
                 <tbody>
                   <tr  *ngFor="let course of courseGradeData; let i = index">
-                    <th scope="row">{{i}}</th>
+                    <td scope="row">{{i}}</td>
                     <td>
                         {{sample[i].course_code}}
                     </td>

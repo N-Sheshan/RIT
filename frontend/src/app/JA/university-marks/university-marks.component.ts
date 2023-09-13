@@ -91,12 +91,10 @@ export class UniversityMarksComponent implements OnInit {
        sum += this.sample[i].credit
        this.gpa +=this.grade[g]*this.sample[i].credit
     }
-    console.log(typeof this.sample);
-    
     this.gpa = this.gpa/sum;
     console.log(`this is sum of crdite ${sum}`+'\n this is gpa '+this.gpa);
-    
     console.log("answer",this.courseGradeData);
+    this.add_cgpa_gpa()
     this.http.post('http://172.16.71.2:9090/api/v1/JA//university_mark', this.courseGradeData)
     .subscribe(
       (response: any) => {
@@ -108,13 +106,11 @@ export class UniversityMarksComponent implements OnInit {
          alert('There was an error inserting the data. Please check the entries.');
         } else {  
           alert('The record already exists.');
-         
         }
       }
     );
+    
     this.courseGradeData = [];
-    this.saveUserDataToLocalStorage();
-
     this.University_Marks_data = {
       degree_code: 2,
       batch_no: null,
@@ -129,7 +125,7 @@ export class UniversityMarksComponent implements OnInit {
     this.table=false
   }
   sample: any;
-  get_course_code() {
+  get_course_code() { 
     const data = {
       semester:Number(this.University_Marks_data.semester),
       regulation: this.University_Marks_data.regulation_no
@@ -141,13 +137,22 @@ export class UniversityMarksComponent implements OnInit {
         this.sample = response;
         for (const key in response) {
           // console.log(response[key]["course_code"]);
-          this.valuesArray[response[key]["course_code"]] = response[key]["credit"]
-        }
+          this.valuesArray[response[key]["course_code"]] = response[key]["credit"]}
         // Store the valuesArray in sessionStorage after it's populated
         sessionStorage.setItem("course_code", JSON.stringify(this.valuesArray));
-
       });
   }
 
+  add_cgpa_gpa(){
+    const details={
+      batch_no: this.University_Marks_data.batch_no,
+      dept_code: this.University_Marks_data.dept_code,
+      regulation_no: this.University_Marks_data.regulation_no,
+      reg_no:this.University_Marks_data.reg_no.toString()
+    }
+    this.http.post('http://172.16.71.2:9090/api/v1/JA/get_student_gpa_cgpa', details)
+      .subscribe((response: any) => {console.log('cgpa ==> '+response[0]);},
+      (error: any) => {console.error('Error:', error);});
+  }
 
 }
