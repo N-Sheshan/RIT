@@ -237,10 +237,10 @@ const login =async(req,res)=>{
 // this block of code for retriving university_course_code fon db --by sheshan
 
 const get_university_course_code =async(req,res)=>{
-  const {semester,regulation}=req.body;
+  const {semester,regulation,batch_no}=req.body;
   console.log(req.body);
   try{
-    const user = await pool.query(query.get_university_course_code,[semester, regulation]);
+    const user = await pool.query(query.get_university_course_code,[semester, regulation,`%${batch_no}%`]);
     if (user) {
       console.log(user.rows)
       return res.json(user.rows);
@@ -253,13 +253,36 @@ const get_university_course_code =async(req,res)=>{
   }
 }
 // this block of code for geting the student cgpa and gpa from sem to n for calculation --by sheshan
+const add_student_gpa_cgpa = async (req, res) => {
+
+  const { degree_code, batch_no, dept_code, regulation_no, semester, reg_no, gpa, cgpa, total_credit,total_credit_earned } = req.body;
+  
+  console.log("Received data from the frontend:", degree_code, batch_no, dept_code, regulation_no, semester, reg_no, gpa, cgpa, total_credit, total_credit_earned);
+
+  try {
+    const user = await pool.query(query.add_student_gpa_cgpa, [degree_code, batch_no, dept_code, regulation_no, semester, reg_no, gpa, cgpa, total_credit, total_credit_earned]);
+
+    if (user.rows.length > 0) {
+      console.log('Successfully added student GPA and CGPA:', user.rows);
+      res.json(user.rows); // Sending response once
+    } else {
+      console.log('Incorrect data received. No rows added.');
+      res.status(401).json({ error: 'Incorrect data' });
+    }
+  } catch (error) {
+    console.error('Database error:', error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+};
+
+// this block of code for get the student gpa and cgpa
 const get_student_gpa_cgpa =async(req,res)=>{
-  const {batch_no,dept_code,regulation_no,reg_no}=req.body;
-  console.log(batch_no,dept_code,regulation_no,reg_no);
+  const {degree_code,batch_no,dept_code,regulation_no,semester,reg_no}=req.body;
+  console.log(req.body);
   try{
-    const user = await pool.query(query.get_student_gpa_cgpa,[batch_no,dept_code,regulation_no,reg_no]);
+    const user = await pool.query(query.get_student_gpa_cgpa,[degree_code,batch_no,dept_code,regulation_no,semester,reg_no]);
     if (user) {
-      console.log('cgpa'+res.json(user.rows))
+      console.log('this is me',user.rows)
       return res.json(user.rows);
     } else {
       return res.status(401).json({ error: 'incorrect data' });
@@ -269,7 +292,6 @@ const get_student_gpa_cgpa =async(req,res)=>{
     return res.status(500).json({ error: 'Internal server error' });
   }
 }
-
 
 
 module.exports = {
@@ -283,6 +305,7 @@ module.exports = {
   add_12th_vocational_mark,
   login,
   get_university_course_code,
-  get_student_gpa_cgpa,
+  add_student_gpa_cgpa,
+  get_student_gpa_cgpa
 }
 

@@ -107,10 +107,14 @@
                 </thead>
                 <tbody>
                   <tr  *ngFor="let course of courseGradeData; let i = index">
-                    <td scope="row">{{i}}</td>
+                    <td scope="row">{{i+1}}</td>
+                    <td>
+                        {{sample[i].course_title}}
+                    </td>
                     <td>
                         {{sample[i].course_code}}
                     </td>
+
                     
                     <td>
                         <select name="Grade" id="Regulation" 
