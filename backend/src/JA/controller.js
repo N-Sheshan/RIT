@@ -47,11 +47,7 @@ const add_university_mark_data =  async (req, res) => {
   const dataToInsert = req.body;
 console.log(typeof dataToInsert[0].courseCode);
   // SQL query to insert data
-  const insertQuery = `
-  INSERT INTO university_marks
-  (degree_code, batch_no, dept_code, regulation_no, semester, course_code, reg_no, grade, section)
-  VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9)
-  `;
+ 
   
   try {
     await pool.connect();
@@ -67,10 +63,10 @@ console.log(typeof dataToInsert[0].courseCode);
       //   console.log(`${key}: ${typeof value}`);
       // } 
       console.log(row);
-      const {degree_code,batch_no,dept_code,regulation_no,courseCode,semester,reg_no,grade,section} = row;
+      const {degree_code,batch_no,dept_code,regulation_no,courseCode,semester,reg_no,grade,section,year_passing,result,no_attempts} = row;
       console.log('this for course code'+courseCode);
-      console.log([degree_code,batch_no,dept_code,regulation_no,semester,courseCode,reg_no,grade,section]); 
-      await pool.query(insertQuery,[degree_code,batch_no,dept_code,regulation_no,semester,courseCode,reg_no,grade,section]);
+      console.log([degree_code,batch_no,dept_code,regulation_no,semester,courseCode,reg_no,grade,section,year_passing,result,no_attempts]); 
+      await pool.query(query.add_university_mark_data,[degree_code,batch_no,dept_code,regulation_no,semester,courseCode,reg_no,grade,section,year_passing,result,no_attempts]);
     }
 
     // Commit the transaction
@@ -234,33 +230,37 @@ const login =async(req,res)=>{
 }
 
 
-// this block of code for retriving university_course_code fon db --by sheshan
+// this block of code for retriving university_course_code fon db --by sheshan 
+const get_university_course_code = async (req, res) => {
+  const { degree_code, batch_no, dept_code, regulation, semester, reg_no } = req.body;
+  // console.log('from sample', req.body);
+  let un_regulation=parseInt(regulation, 10)
+  let un_batch_no =parseInt(batch_no, 10)
+  console.log(un_regulation);
+  try {
+    const user = await pool.query(query.get_university_course_code,[degree_code,dept_code,semester,reg_no,regulation,un_regulation,un_batch_no,`%${batch_no}%`,'fail']);
 
-const get_university_course_code =async(req,res)=>{
-  const {semester,regulation,batch_no}=req.body;
-  console.log(req.body);
-  try{
-    const user = await pool.query(query.get_university_course_code,[semester, regulation,`%${batch_no}%`]);
     if (user) {
-      console.log(user.rows)
+      console.log(user.rows);
       return res.json(user.rows);
     } else {
-      return res.status(401).json({ error: 'incorrect data' });
+      return res.status(401).json({ error: 'Incorrect data' });
     }
   } catch (error) {
     console.error('Database error:', error);
     return res.status(500).json({ error: 'Internal server error' });
   }
-}
+};
+
 // this block of code for geting the student cgpa and gpa from sem to n for calculation --by sheshan
 const add_student_gpa_cgpa = async (req, res) => {
 
-  const { degree_code, batch_no, dept_code, regulation_no, semester, reg_no, gpa, cgpa, total_credit,total_credit_earned } = req.body;
+  const { degree_code, batch_no, dept_code, regulation_no, semester, reg_no, gpa, cgpa, total_credit,total_credit_earned,history_of_arrear,arrear_count } = req.body;
   
-  console.log("Received data from the frontend:", degree_code, batch_no, dept_code, regulation_no, semester, reg_no, gpa, cgpa, total_credit, total_credit_earned);
+  console.log("Received data from the frontend:", degree_code, batch_no, dept_code, regulation_no, semester, reg_no, gpa, cgpa, total_credit, total_credit_earned,history_of_arrear,arrear_count );
 
   try {
-    const user = await pool.query(query.add_student_gpa_cgpa, [degree_code, batch_no, dept_code, regulation_no, semester, reg_no, gpa, cgpa, total_credit, total_credit_earned]);
+    const user = await pool.query(query.add_student_gpa_cgpa, [degree_code, batch_no, dept_code, regulation_no, semester, reg_no, gpa, cgpa, total_credit, total_credit_earned,history_of_arrear,arrear_count]);
 
     if (user.rows.length > 0) {
       console.log('Successfully added student GPA and CGPA:', user.rows);

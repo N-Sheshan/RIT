@@ -15,12 +15,12 @@ export class UniversityMarksComponent implements OnInit {
 
   constructor(private http: HttpClient) {localStorage.setItem('grade', JSON.stringify({'O': 10,'A+': 9,'A': 8,'B+': 7,'B': 6,'C': 5}));}
   // jsonString = ;
-  grade:{ [key: string]: number }={'O': 10,'A+': 9,'A': 8,'B+': 7,'B': 6,'C': 5}
+  grade:{ [key: string]: number }={'O': 10,'A+': 9,'A': 8,'B+': 7,'B': 6,'C': 5,'RA':0}
   gpa: number = 0;
   cgpa: number = 0;
-  total_credit:number=0;
   C_total_credit:number = 0;
 C_total_credit_earned:number = 0;
+arrear_count=0;
 
   ngOnInit() {
   }
@@ -35,8 +35,10 @@ C_total_credit_earned:number = 0;
     course_code: '',
     reg_no: '',
     grade: '',
-    section: ''
-
+    section: '',
+    year_passing:'',
+    result:'',
+    no_attempts:null
   }
   ans:number=0;
   // Array to store course, grade, and additional data
@@ -50,6 +52,10 @@ C_total_credit_earned:number = 0;
     reg_no: string;
     grade: string;
     section: string;
+    year_passing:string;
+    result:string;
+    no_attempts:number | null;
+
   }[] = [];
   // Function to add a new row to the array
   addCourseRow() {
@@ -68,6 +74,9 @@ C_total_credit_earned:number = 0;
         reg_no: this.University_Marks_data.reg_no,
         grade: '',
         section: this.University_Marks_data.section,
+        year_passing:'nov-dec 20??',
+        result:'',
+        no_attempts:0
       });
     }
    this.table=true
@@ -88,100 +97,19 @@ C_total_credit_earned:number = 0;
     }
   }
 
-
-
-  // To_DB(): void {
-  //   let total_cridet=0;
-  //   let total_cridet_earned=0
-  //   console.log(this.sample);
-  //   console.log(this.courseGradeData);
-    
-    
-  //   for (let i = 0; i < this.sample.length; i++) {
-  //      this.courseGradeData[i].courseCode = this.sample[i].course_code;
-  //      let g=this.courseGradeData[i].grade
-  //      total_cridet += this.sample[i].credit
-  //      this.gpa +=this.grade[g]*this.sample[i].credit
-  //   }
-  //   console.log("sum of all cridet "+ total_cridet);
-  //   console.log("sum of eraned "+this.gpa);
-  //   total_cridet_earned=this.gpa
-  //   this.gpa = this.gpa/total_cridet;
-  //   console.log(`this is sum of crdite ${total_cridet}`+'\n this is gpa '+this.gpa);
-  //   // console.log("answer",this.courseGradeData);
-  //   this.get_cgpa_gpa().subscribe(
-  //     (result: any) => {
-  //       console.log('Total Credit:', result.t_cridet);
-  //       console.log('Total Credit Earned:', result.t_c_earned);
-    
-  //       // Assuming this.gpa and total_cridet are defined somewhere
-  //       console.log(total_cridet_earned, result.t_c_earned,total_cridet + result.t_cridet);
-        
-  //       this.cgpa = (total_cridet_earned + result.t_c_earned) / (total_cridet + result.t_cridet);
-        
-  //       console.log('This is the total cgpa:', this.cgpa);
-  //     },
-  //     (error: any) => {
-  //       console.error('Error:', error);
-  //     }
-  //   );
-     
-     
-  //   this.http.post('http://172.16.71.2:9090/api/v1/JA/university_mark', this.courseGradeData)
-  //   .subscribe(
-  //     (response: any) => {
-  //       alert('Data saved successfully...');
-  //       console.log('checking cgpa',this.cgpa);
-     
-  //       this.add_cgpa_gpa(total_cridet_earned,total_cridet)
-  //     },
-  //     (error: any) => {
-  //       console.error('Error submitting form:', error);
-  //       if (error.error && error.error.error === 'Duplicate key violation. The record already exists.') {
-  //        alert('There was an error inserting the data. Please check the entries.');
-  //       } else {  
-  //         alert('The record already exists.');
-  //       }
-  //     }
-  //   );
-    
-  //   this.courseGradeData = [];
-  //   this.University_Marks_data = {
-  //     degree_code: 2,
-  //     batch_no: null,
-  //     dept_code: 16,
-  //     regulation_no: null,
-  //     semester: null,
-  //     course_code: '',
-  //     reg_no: '',
-  //     grade: '',
-  //     section: ''
-  //   };
-  //   this.table=false
-  // }
   async To_DB(){
-    // let total_credit = 0;
-    // let total_credit_earned = 0;
-    // let local_cgpa=0;
-    // console.log(this.sample);
-    // console.log(this.courseGradeData);
+
   
     for (let i = 0; i < this.sample.length; i++) {
       this.courseGradeData[i].courseCode = this.sample[i].course_code;
-      
-      
       let grade = this.courseGradeData[i].grade;
-     
       this.C_total_credit += this.sample[i].credit;
-      console.log(this.C_total_credit,'==',this.sample[i].credit);
       this.C_total_credit_earned += this.grade[grade] * this.sample[i].credit;
-      console.log(this.grade[grade],'*',this.sample[i].credit,'==>',this.grade[grade] * this.sample[i].credit);
-      console.log('from from loop',this.C_total_credit,this.C_total_credit_earned);
-      
+      this.courseGradeData[i].result = (grade === 'RA') ? 'fail' : 'pass';
+      this.arrear_count += (grade === 'RA') ? 1 : 0;
+      console.log(this.courseGradeData[i].courseCode,'==>', this.courseGradeData[i].result);
     }
-    console.log('total current calculation for total_credit and total_credit_earned',this.C_total_credit,this.C_total_credit_earned);
     this.gpa = this.C_total_credit_earned / this.C_total_credit;
-    console.log('This is the total gpa:', this.gpa);
     try {
       // Run the first function
       const result = await this.get_cgpa_gpa().toPromise();
@@ -242,12 +170,14 @@ C_total_credit_earned:number = 0;
       course_code: '',
       reg_no: '',
       grade: '',
-      section: ''
+      section: '',
+      year_passing:'',
+    result:'',
+    no_attempts:null
     };
     this.table = false;
     this.gpa = 0;
     this.cgpa = 0;
-    this.total_credit=0;
     this.C_total_credit = 0;
   this.C_total_credit_earned = 0;
   }
@@ -255,10 +185,15 @@ C_total_credit_earned:number = 0;
   get_course_code() { 
     const batch_no:any = this.University_Marks_data.batch_no;    
     const data = {
-      semester:Number(this.University_Marks_data.semester),
+      degree_code:this.University_Marks_data.degree_code,
+      batch_no:batch_no.toString(),
+      dept_code:this.University_Marks_data.dept_code,
       regulation: this.University_Marks_data.regulation_no,
-      batch_no:batch_no.toString()
+      semester:Number(this.University_Marks_data.semester),
+      reg_no:this.University_Marks_data.reg_no 
     };
+    console.log("for testing",data);
+    
     this.valuesArray = []
     this.http.post('http://172.16.71.2:9090/api/v1/JA/university_course_code', data)
       .subscribe((response: any) => {
@@ -286,6 +221,9 @@ C_total_credit_earned:number = 0;
       cgpa: parseFloat(this.cgpa.toFixed(2)),
       total_credit_earned: total_credit_earned,
       total_credit: total_credit,
+      history_of_arrear:(this.arrear_count >0) ? 'yes' : 'no',
+      arrear_count:this.arrear_count
+
     };
   
     console.log('no2:');
