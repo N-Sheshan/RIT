@@ -64,13 +64,14 @@ arrear_count=0;
     this.courseGradeData=[]
     // console.log("main loop-------------------",this.ans+=1);
     for (let count of this.sample){
+
       this.courseGradeData.push({
         degree_code: 2,
         batch_no: Number(this.University_Marks_data.batch_no),
         dept_code: this.University_Marks_data.dept_code,
         regulation_no: Number(this.University_Marks_data.regulation_no),
         courseCode: '',
-        semester:Number(this.University_Marks_data.semester),
+        semester:null,
         reg_no: this.University_Marks_data.reg_no,
         grade: '',
         section: this.University_Marks_data.section,
@@ -98,16 +99,19 @@ arrear_count=0;
   }
 
   async To_DB(){
-
-  
+    console.log(this.courseGradeData);
+    
     for (let i = 0; i < this.sample.length; i++) {
+      // Initialize this.courseGradeData[i] as an object
+      this.courseGradeData[i] = this.courseGradeData[i] || {};
       this.courseGradeData[i].courseCode = this.sample[i].course_code;
+      this.courseGradeData[i].semester = this.sample[i].semester;
       let grade = this.courseGradeData[i].grade;
       this.C_total_credit += this.sample[i].credit;
       this.C_total_credit_earned += this.grade[grade] * this.sample[i].credit;
       this.courseGradeData[i].result = (grade === 'RA') ? 'fail' : 'pass';
-      this.arrear_count += (grade === 'RA') ? 1 : 0;
-      console.log(this.courseGradeData[i].courseCode,'==>', this.courseGradeData[i].result);
+      this.arrear_count += (grade === 'RA' && this.sample[i].semester === this.University_Marks_data.semester) ? 1 : 0;
+      console.log(this.courseGradeData[i].courseCode, '==>', this.courseGradeData[i].result);
     }
     this.gpa = this.C_total_credit_earned / this.C_total_credit;
     try {

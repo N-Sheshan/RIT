@@ -43,46 +43,118 @@ const addcoursdata = async (req, res) => {
 
 
 // this set of code line for university mark data entry to db
-const add_university_mark_data =  async (req, res) => {
+const add_university_mark_data = async (req, res) => {
   const dataToInsert = req.body;
-console.log(typeof dataToInsert[0].courseCode);
-  // SQL query to insert data
- 
-  
+
   try {
     await pool.connect();
-
-    // Begin a transaction
     await pool.query('BEGIN');
 
-    // Loop through the data and insert each row
     for (const row of dataToInsert) {
-      // console.log(row);
-      // for (const key of Object.keys(row)) {
-      //   const value = row[key];
-      //   console.log(`${key}: ${typeof value}`);
-      // } 
-      console.log(row);
-      const {degree_code,batch_no,dept_code,regulation_no,courseCode,semester,reg_no,grade,section,year_passing,result,no_attempts} = row;
-      console.log('this for course code'+courseCode);
-      console.log([degree_code,batch_no,dept_code,regulation_no,semester,courseCode,reg_no,grade,section,year_passing,result,no_attempts]); 
-      await pool.query(query.add_university_mark_data,[degree_code,batch_no,dept_code,regulation_no,semester,courseCode,reg_no,grade,section,year_passing,result,no_attempts]);
+      const {
+        degree_code,
+        batch_no,
+        dept_code,
+        regulation_no,
+        semester,
+        courseCode,
+        reg_no,
+        grade,
+        section,
+        year_passing,
+        result,
+        no_attempts
+      } = row;
+
+      const queryText = `
+        SELECT no_attempts FROM university_marks
+        WHERE degree_code = $1
+        AND batch_no = $2
+        AND dept_code = $3
+        AND regulation_no = $4
+        AND semester = $5
+        AND course_code like $6
+        AND reg_no = $7;
+      `;
+
+      const values = [degree_code, batch_no, dept_code, regulation_no, semester,`%${courseCode}%`, reg_no];
+      console.log(values);
+      const results = await pool.query(queryText, values);
+
+      if (results.rows.length > 0) {
+        // Data exists, perform update
+        console.log(results.rows.length,'hihihi if ');
+        const updateQuery = `
+          UPDATE university_marks
+          SET
+            grade = $8,
+            section = $9,
+            year_passing = $10,
+            result = $11,
+            no_attempts = university_marks.no_attempts + 1
+          WHERE
+            degree_code = $1
+            AND batch_no = $2
+            AND dept_code = $3
+            AND regulation_no = $4
+            AND semester = $5
+            AND course_code = $6
+            AND reg_no = $7;
+        `;
+
+        const updateValues = [
+          degree_code,
+          batch_no,
+          dept_code,
+          regulation_no,
+          semester,
+          courseCode,
+          reg_no,
+          grade,
+          section,
+          year_passing,
+          result
+        ];
+
+        await pool.query(updateQuery, updateValues);
+      } else {
+        // Data doesn't exist, perform insert
+        console.log(results.rows.length,'hello else');
+        const insertQuery = `
+          INSERT INTO university_marks
+          (degree_code, batch_no, dept_code, regulation_no, semester, course_code, reg_no, grade, section, year_passing, result, no_attempts)
+          VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12);
+        `;
+
+        const insertValues = [
+          degree_code,
+          batch_no,
+          dept_code,
+          regulation_no,
+          semester,
+          courseCode,
+          reg_no,
+          grade,
+          section,
+          year_passing,
+          result,
+          no_attempts
+        ];
+
+        await pool.query(insertQuery, insertValues);
+      }
     }
 
-    // Commit the transaction
     await pool.query('COMMIT');
-    console.log('Data inserted successfully.');
-    res.status(200).json({ message: 'Data inserted successfully' });
+    console.log('Data inserted or updated successfully.');
+    res.status(200).json({ message: 'Data inserted or updated successfully' });
   } catch (error) {
-    // If an error occurs, roll back the transaction
     await pool.query('ROLLBACK');
-    console.error('Error inserting data:', error);
+    console.error('Error inserting or updating data:', error);
     res.status(500).json({ error: 'Internal server error' });
   } finally {
     // Release the client from the pool
-  
   }
-
 };
 // const add_university_mark_data = async (req, res) => {
 //   const {

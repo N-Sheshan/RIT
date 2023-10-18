@@ -8,7 +8,7 @@ const add_student_12th_mark = "insert into student_12th_marks_stateboard (degree
 const add_12th_icse_cbsc_mark  = "insert into student_12th_marks_icse_cbse (degree_code,batch_no,dept_code,education_type,year_of_passing,language1,language1_mark,language2,language2_Mark,english,maths,physics,chemistry,biology,computer_science,total,percentage,cutoff) values ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15,$16,$17,$18);"
 const add_12th_vocational_mark  = "insert into student_12th_marks_voc (degree_code,batch_no,dept_code,education_type,year_of_passing,language,language_mark,maths,physics,chemistry,voc_theory_name,voc_theory_mark,voc_practical_name,voc_practical_mark,total,percentage,cutoff) values ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15,$16,$17,$18);"
 const login ="SELECT role FROM user_new WHERE username = $1 AND password = $2";
-const get_university_course_code =`SELECT course_code, credit, course_title 
+const get_university_course_code =`SELECT course_code, credit, course_title ,semester
 FROM course_master 
 WHERE course_code IN (
   SELECT course_code 
