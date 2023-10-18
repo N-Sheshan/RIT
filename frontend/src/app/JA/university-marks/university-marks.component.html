@@ -11,7 +11,7 @@
                         Batch*
                     </label>
                     <select name="Batch" id="Batch" class="formbold-form-input"
-                        [(ngModel)]="University_Marks_data.batch_no" required >
+                        [(ngModel)]="University_Marks_data.batch_no" required (change)="enableNextInput(1)" >
                         <option value="" disabled selected hidden>Select Batch</option>
                         <option [value]="2021">2021</option>
                         <option [value]="2022">2022</option>
@@ -20,10 +20,10 @@
                         <option [value]="2025">2025</option>
                     </select>
                 </div>
-                <div>
+                <div >
                     <label for="Semester" class="formbold-form-label"> Semester* </label>
                     <select name="Semester" id="Semester" class="formbold-form-input"
-                        [(ngModel)]="University_Marks_data.semester" required (change)="get_course_code()"  >
+                        [(ngModel)]="University_Marks_data.semester" required [disabled]="!isSecondInputEnabled" (change)="enableNextInput(2)" >
                         <option value="" disabled selected hidden>Select Semester</option>
                         <option [value]="1"> 1</option>
                         <option [value]="2"> 2</option>
@@ -40,7 +40,7 @@
                 <div>
                     <label for="Regulation" class="formbold-form-label"> Regulation* </label>
                     <select name="Regulation" id="Regulation" class="formbold-form-input"
-                        [(ngModel)]="University_Marks_data.regulation_no" required (change)="get_course_code()" >
+                        [(ngModel)]="University_Marks_data.regulation_no" required [disabled]="!isThirdInputEnabled" (change)="enableNextInput(3)" >
                         <option value="" disabled selected hidden>Select Regulation</option>
                         <!-- <option [value]="2017">2017</option> -->
                         <option [value]="2021">2021</option>
@@ -55,7 +55,7 @@
                 <div>
                     <label for="section" class="formbold-form-label"> section* </label>
                     <select name="section" id="section" class="formbold-form-input"
-                        [(ngModel)]="University_Marks_data.section" required  >
+                        [(ngModel)]="University_Marks_data.section" required [disabled]="!isFourInputEnabled" (change)="enableNextInput(4)" >
                         <option value=" " disabled selected hidden>Select section</option>
                         <option value="None">None</option>
                         <option value="A">A Section</option>
@@ -68,7 +68,7 @@
                         Register_No*
                     </label>
                     <input type="text" name="Register_No" id="Register_No" class="formbold-form-input"
-                        placeholder="Enter Register_No" [(ngModel)]="University_Marks_data.reg_no" required maxlength="12" (change)="get_course_code()"  (ngModelChange)="addCourseRow()"/>
+                        placeholder="Enter Register_No" [(ngModel)]="University_Marks_data.reg_no" required maxlength="12" (change)="get_course_code()" [disabled]="!isFiveInputEnabled" (ngModelChange)="addCourseRow()" />
                 </div>
                 
                 <!-- <div><label for="Course_code" class="formbold-form-label">
