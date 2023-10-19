@@ -180,3 +180,13 @@ body {
   color: #000000;
   text-align: center;
 }
+
+h4 ul li{
+  /* color: black; */
+  font-weight: 700;
+}
+h4 span u{
+  color: black;
+  font-weight: 900;
+  font-size: x-large;
+}

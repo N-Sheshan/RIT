@@ -64,18 +64,27 @@
 
                     </select>
                 </div>
+                <div>
+                    <label for="calendar" class="formbold-form-label">Select Examination Month and Year *</label>
+                    <input type="month" value="" class="formbold-form-input" required 
+                           [disabled]="!isFiveInputEnabled" 
+                           (change)="enableNextInput(5)" 
+                           [(ngModel)]="University_Marks_data.year_passing" 
+                           name="year_passing" >
+                </div>
+                
                 <div><label for="Register_No" class="formbold-form-label">
                         Register_No*
                     </label>
                     <input type="text" name="Register_No" id="Register_No" class="formbold-form-input"
-                        placeholder="Enter Register_No" [(ngModel)]="University_Marks_data.reg_no" required maxlength="12" (change)="get_course_code()" [disabled]="!isFiveInputEnabled" (ngModelChange)="addCourseRow()" />
+                        placeholder="Enter Register_No" [(ngModel)]="University_Marks_data.reg_no" required maxlength="12" (keyup.enter)="get_course_code(); addCourseRow();" [disabled]="!issixInputEnabled"    />
                 </div>
                 
                 <!-- <div><label for="Course_code" class="formbold-form-label">
                         Course_code*
                     </label>
                     <input type="text" name="Course_code" id="Course_code" class="formbold-form-input"
-                        placeholder="Enter Course_code" [(ngModel)]="University_Marks_data.course_code" required />
+                        placeholder="Enter Course_code" [(ngModel)]="University_Marks_data.course_code" required /> [disabled]="!isFiveInputEnabled"
                 </div>
                 <div><label for="Grade" class="formbold-form-label">
                         Grade*
@@ -103,6 +112,7 @@
                     <th scope="col">S.No</th>
                     <th scope="col">Course TItle</th>
                     <th scope="col">Course Code</th>
+                    <th scope="col">semester</th>
                     <th scope="col">Grade</th>
                   </tr>
                 </thead>
@@ -116,7 +126,9 @@
                         {{sample[i].course_code}}
                     </td>
 
-                    
+                    <td>
+                        {{sample[i].semester}}
+                    </td>
                     <td>
                         <select name="Grade" id="Regulation" 
                         [(ngModel)]="course.grade" name="grade{{i}}" required style="border: none;width: 100%;height: 100%;text-align: center;">
@@ -137,9 +149,18 @@
               </table>
            
 
-            <button type="submit" [disabled]='!myForm.form.valid'
-                [ngClass]="{'default-button':!myForm.form.valid,'blue-button':myForm.form.valid}">Add To DB</button>
+            <button type="submit" [disabled]='!myForm.form.valid || !table'
+                [ngClass]="{'default-button':!myForm.form.valid || !table,'blue-button':myForm.form.valid && table}">Add To DB</button>
         </form>
+        <br><br>
+        <h4>
+            <span><h3><u>Notes:</u>
+                </h3></span>
+            <ul >
+                <li>please share your grades for semester by semster</li>
+                <li>kindly press the enter key twice after fill the registation_no </li>
+            </ul>
+        </h4>
         
     </div>
     

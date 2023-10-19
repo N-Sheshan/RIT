@@ -31,7 +31,7 @@ WHERE course_code IN (
     AND reg_no = $4 
     AND semester < $3
 );`
-const get_student_gpa_cgpa = "select semester,gpa, total_credit_earned,total_credit from student_gpa_cgpa where degree_code=$1 and batch_no=$2 and dept_code=$3 and regulation_no=$4 and semester <= $5 and reg_no=$6; "
+const get_student_gpa_cgpa = "select semester,gpa, total_credit_earned,total_credit from student_gpa_cgpa where degree_code=$1 and batch_no=$2 and dept_code=$3 and regulation_no=$4 and semester < $5 and reg_no=$6; "
 const add_student_gpa_cgpa='insert into student_gpa_cgpa ( degree_code,batch_no,dept_code,regulation_no,semester,reg_no, gpa ,cgpa ,total_credit_earned,total_credit,history_of_arrear,arrear_count) values($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12);'
 module.exports = {
     getcoursedata,

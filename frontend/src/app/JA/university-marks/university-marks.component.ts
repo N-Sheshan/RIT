@@ -38,7 +38,7 @@ export class UniversityMarksComponent implements OnInit {
     section: '',
     year_passing: '',
     result: '',
-    no_attempts: null
+    no_attempts: 1
   }
   ans: number = 0;
   // Array to store course, grade, and additional data
@@ -58,33 +58,36 @@ export class UniversityMarksComponent implements OnInit {
   }[] = [];
   // Function to add a new row to the array
   addCourseRow() {
+    this.courseGradeData = [];
 
-
-    this.courseGradeData = []
-    // console.log("main loop-------------------",this.ans+=1);
-    for (let count of this.sample) {
-
-      this.courseGradeData.push({
-        degree_code: 2,
-        batch_no: Number(this.University_Marks_data.batch_no),
-        dept_code: this.University_Marks_data.dept_code,
-        regulation_no: Number(this.University_Marks_data.regulation_no),
-        courseCode: '',
-        semester: null,
-        reg_no: this.University_Marks_data.reg_no,
-        grade: '',
-        section: this.University_Marks_data.section,
-        year_passing: 'nov-dec 20??',
-        result: '',
-        no_attempts: 0
-      });
+    // Check if this.sample is an array
+    if (Array.isArray(this.sample)) {
+        for (let count of this.sample) {
+            this.courseGradeData.push({
+                degree_code: 2,
+                batch_no: Number(this.University_Marks_data.batch_no),
+                dept_code: this.University_Marks_data.dept_code,
+                regulation_no: Number(this.University_Marks_data.regulation_no),
+                courseCode: '',
+                semester: null,
+                reg_no: this.University_Marks_data.reg_no,
+                grade: '',
+                section: this.University_Marks_data.section,
+                year_passing: this.University_Marks_data.year_passing,
+                result: '',
+                no_attempts: 0
+            });
+        }
+        this.table = true;
+    } else {
+        console.error("this.sample is not an array");
     }
-    this.table = true
-  }
+}
+
 
   // Function to save data to local storage
   saveUserDataToLocalStorage(): void {
-    console.log("this is localstorage");
+    // console.log("this is localstorage");
 
     localStorage.setItem('UniversityMarksData', JSON.stringify(this.courseGradeData));
   }
@@ -98,7 +101,7 @@ export class UniversityMarksComponent implements OnInit {
   }
   semesterCredits: { [key: number]: number } = {};
   async To_DB() {
-    console.log(this.courseGradeData);
+    // console.log(this.courseGradeData);
     for (let i = 0; i < this.sample.length; i++) {
       // Initialize this.courseGradeData[i] as an object
       this.courseGradeData[i] = this.courseGradeData[i] || {};
@@ -128,54 +131,58 @@ export class UniversityMarksComponent implements OnInit {
         // console.log('current semester disneary',this.semesterCredits);
       }
 
-      console.log('main semester disneary', this.semesterCredits, '\nC_total_credit', this.C_total_credit, '\nC_total_credit_earned', this.C_total_credit_earned);
+      // console.log('main semester disneary', this.semesterCredits, '\nC_total_credit', this.C_total_credit, '\nC_total_credit_earned', this.C_total_credit_earned);
 
       this.courseGradeData[i].result = (grade === 'RA') ? 'fail' : 'pass';
 
-      console.log(this.courseGradeData[i].courseCode, '==>', this.courseGradeData[i].result);
+      // console.log(this.courseGradeData[i].courseCode, '==>', this.courseGradeData[i].result);
     }
     // console.log('after for loop', this.courseGradeData);
-   
     try {
       // Run the first function
       for (const semester in this.semesterCredits) {
         let semesterNumber = +semester;
-        if (this.semesterCredits.hasOwnProperty(semester) && semesterNumber === parseInt(String(this.University_Marks_data.semester), 10)) {
-          // Call a function based on the dictionary key
-          let current_sem_gpa = this.C_total_credit_earned / this.C_total_credit;
-          const result = await this.get_cgpa_gpa(semesterNumber).toPromise();
 
-          console.log('Total Credit:', result.t_cridet);
-          console.log('Total Credit Earned:', result.t_c_earned);
-
-          // Assuming this.gpa and total_cridet are defined somewhere
-          console.log(this.C_total_credit_earned, result.t_c_earned, this.C_total_credit, result.t_cridet);
-
-          let current_sem_cgpa = (this.C_total_credit_earned + result.t_c_earned) / (this.C_total_credit + result.t_cridet);
-
-
-          console.log('This is the total cgpa:', current_sem_cgpa);
-
-          // After the first function is completed, run the second function
-          await this.add_cgpa_gpa(current_sem_gpa,current_sem_cgpa,this.C_total_credit,this.C_total_credit_earned,semesterNumber);
-
-          console.log('Both functions completed.');
-          console.log('************Current Semester:', this.University_Marks_data.semester);
-        } else {
-          if (this.semesterCredits.hasOwnProperty(semester)) {
+        try {
+          if (this.semesterCredits.hasOwnProperty(semester) && semesterNumber === parseInt(String(this.University_Marks_data.semester), 10)) {
+            // Call a function based on the dictionary key
+            let current_sem_gpa = this.C_total_credit_earned / this.C_total_credit;
             const result = await this.get_cgpa_gpa(semesterNumber).toPromise();
-            console.log('from database',result);
-            let arrear_gpa= (this.semesterCredits[semester]+result.sem_c_earned)/result.sem_cridet
-            let arrear_cgpa=(result.t_c_earned+this.semesterCredits[semester])/result.t_cridet
 
-            await this.add_cgpa_gpa(arrear_gpa,arrear_cgpa,result.t_cridet,result.t_c_earned+this.semesterCredits[semester],semesterNumber);
+            // console.log('Total Credit:', result.t_cridet);
+            // console.log('Total Credit Earned:', result.t_c_earned);
 
-            console.log('************not a current sem');
+            // // Assuming this.gpa and total_cridet are defined somewhere
+            // console.log(this.C_total_credit_earned, result.t_c_earned, this.C_total_credit, result.t_cridet);
 
+            let current_sem_cgpa = (this.C_total_credit_earned + result.t_c_earned) / (this.C_total_credit + result.t_cridet);
+
+            // After the first function is completed, run the second function
+            await this.add_cgpa_gpa(current_sem_gpa, current_sem_cgpa, this.C_total_credit, this.C_total_credit_earned, semesterNumber);
+            alert(`current semester : ${semesterNumber}\n GPA : ${current_sem_gpa.toFixed(2)}\n CGPA : ${current_sem_cgpa.toFixed(2)}\n\n If any correction contact us`);
+            // 2('************Current Semester:', this.University_Marks_data.semester);
+          } else {
+            if (this.semesterCredits.hasOwnProperty(semester)) {
+              const result = await this.get_cgpa_gpa(semesterNumber).toPromise();
+              // console.log('from database', result);
+              // console.log('this.semesterCredits[semester]',this.semesterCredits[semester]);
+
+              let arrear_gpa = (this.semesterCredits[semester] + result.sem_c_earned) / result.sem_cridet;
+              let arrear_cgpa = (result.t_c_earned + this.semesterCredits[semester]) / result.t_cridet;
+
+              // After the first function is completed, run the second function
+              // console.log('arrear cgpa updating data',arrear_gpa, arrear_cgpa, result.t_cridet, result.sem_c_earned + this.semesterCredits[semester], semesterNumber);
+
+              await this.add_cgpa_gpa(arrear_gpa, arrear_cgpa, result.t_cridet, result.sem_c_earned + this.semesterCredits[semester], semesterNumber);
+              alert(`arrear semester : ${semesterNumber}\nUPDATED GPA : ${arrear_gpa.toFixed(2)}\nUPDATED CGPA : ${arrear_cgpa.toFixed(2)}\n\n If any correction contact us`);
+              // console.log('************not a current sem');
+            }
           }
+        } catch (error) {
+          console.error('An error occurred in the loop iteration:', error);
+          // Handle the error if needed
         }
       }
-
 
       console.log('Both functions completed.');
     } catch (error) {
@@ -213,18 +220,19 @@ export class UniversityMarksComponent implements OnInit {
       section: '',
       year_passing: '',
       result: '',
-      no_attempts: null
+      no_attempts: 1
     };
     this.table = false;
     this.gpa = 0;
     this.cgpa = 0;
     this.C_total_credit = 0;
     this.C_total_credit_earned = 0;
-    this.arrear_count=0;
+    this.arrear_count = 0;
     this.isSecondInputEnabled = false;
     this.isThirdInputEnabled = false;
     this.isFourInputEnabled = false;
     this.isFiveInputEnabled = false;
+    this.issixInputEnabled = false;
     this.semesterCredits = {}
   }
   sample: any;
@@ -238,12 +246,12 @@ export class UniversityMarksComponent implements OnInit {
       semester: Number(this.University_Marks_data.semester),
       reg_no: this.University_Marks_data.reg_no
     };
-    console.log("for testing", data);
+    // console.log("for testing", data);
 
     this.valuesArray = []
     this.http.post('http://172.16.71.2:9090/api/v1/JA/university_course_code', data)
       .subscribe((response: any) => {
-        console.log(response);
+        // console.log(response);
         this.sample = response;
         for (const key in response) {
           // console.log(response[key]["course_code"]);
@@ -252,10 +260,10 @@ export class UniversityMarksComponent implements OnInit {
         // Store the valuesArray in sessionStorage after it's populated
         sessionStorage.setItem("course_code", JSON.stringify(this.valuesArray));
       });
-    }
+  }
 
-  add_cgpa_gpa(gpa:number,cgpa:number,total_credit: number, total_credit_earned: number,semesterNumber:number): void {
-    console.log('Checking GPA and CGPA from function:', gpa, cgpa);
+  add_cgpa_gpa(gpa: number, cgpa: number, total_credit: number, total_credit_earned: number, semesterNumber: number): void {
+    // console.log('Checking GPA and CGPA from function:', gpa, cgpa);
 
     const details = {
       degree_code: this.University_Marks_data.degree_code,
@@ -273,7 +281,7 @@ export class UniversityMarksComponent implements OnInit {
 
     };
 
-    console.log('no2:',details);
+    // console.log('no2:',details);
 
     const addStudentGpaCgpaEndpoint = 'http://172.16.71.2:9090/api/v1/JA/add_student_gpa_cgpa';
 
@@ -290,7 +298,7 @@ export class UniversityMarksComponent implements OnInit {
   }
 
 
-  get_cgpa_gpa(semesterNumber:number): Observable<any> {
+  get_cgpa_gpa(semesterNumber: number): Observable<any> {
     const details = {
       degree_code: this.University_Marks_data.degree_code,
       batch_no: this.University_Marks_data.batch_no,
@@ -300,33 +308,33 @@ export class UniversityMarksComponent implements OnInit {
       reg_no: this.University_Marks_data.reg_no.toString(),
     };
 
-    console.log('no:1',semesterNumber);
+    // console.log('no:1',semesterNumber);
 
     return this.http.post('http://172.16.71.2:9090/api/v1/JA/get_student_gpa_cgpa', details).pipe(
       map((response: any) => {
         // console.log('cgpa ==> ' + response);
         let t_cridet = 0;
         let t_c_earned = 0;
-        let sem_cridet=0;
-        let sem_c_earned=0;
-        console.log('response',response);
-        
+        let sem_cridet = 0;
+        let sem_c_earned = 0;
+        // console.log('response',response);
+
 
         for (let key in response) {
 
-          console.log('checking sem',response[key]['semester'],semesterNumber,typeof response[key]['semester'],typeof semesterNumber);
-          
-          if (response[key]['semester'] === semesterNumber){
-            sem_cridet=response[key]['total_credit'];
-            sem_c_earned=response[key]['total_credit_earned'];
-            console.log('for checking get_cgpa',response[key]['total_credit'],response[key]['total_credit_earned']);
-            
+          console.log('checking sem', response[key]['semester'], semesterNumber, typeof response[key]['semester'], typeof semesterNumber);
+
+          if (response[key]['semester'] === semesterNumber) {
+            sem_cridet = response[key]['total_credit'];
+            sem_c_earned = response[key]['total_credit_earned'];
+            // console.log('for checking get_cgpa',response[key]['total_credit'],response[key]['total_credit_earned']);
+
           }
           t_cridet += response[key]['total_credit'];
           t_c_earned += response[key]['total_credit_earned'];
         }
 
-        return { t_cridet, t_c_earned,sem_cridet,sem_c_earned };
+        return { t_cridet, t_c_earned, sem_cridet, sem_c_earned };
       }),
       catchError((error: any) => {
         console.error('Error:', error);
@@ -339,9 +347,9 @@ export class UniversityMarksComponent implements OnInit {
   isThirdInputEnabled = false;
   isFourInputEnabled = false;
   isFiveInputEnabled = false;
-
+  issixInputEnabled = false;
   enableNextInput(step: number): void {
-    console.log(`Step ${step} selected.`);
+    // console.log(`Step ${step} selected.`);
     switch (step) {
       case 1:
         this.isSecondInputEnabled = true;
@@ -354,6 +362,9 @@ export class UniversityMarksComponent implements OnInit {
         break;
       case 4:
         this.isFiveInputEnabled = true;
+        break;
+      case 5:
+        this.issixInputEnabled = true;
         break;
       // Add cases for other steps as needed
       default:
